@@ -4,7 +4,10 @@ import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import Login from "../Pages/Login/Login";
-import PrivateRoute from "./PrivateRoute";
+import AdminOverview from "../Pages/AdminPages/AdminOverview/AdminOverview";
+import PartnerRequests from "../Pages/AdminPages/PartnerRequests/PartnerRequests";
+import AdminRoute from "./AdminRoute";
+import RestaurantHandlersRoute from "./RestaurantHandlersRoute";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +23,10 @@ const router = createBrowserRouter([
         path: "/login",
         element: <Login />,
       },
+      {
+        path: "/unauthorized-route",
+        element: <div>This is un</div>,
+      },
     ],
   },
 
@@ -27,12 +34,31 @@ const router = createBrowserRouter([
     path: "/",
     element: <DashboardLayout />,
     children: [
+      // Admin routes
       {
-        path: "/dashboard/overview",
+        path: "/admin/dashboard/overview",
         element: (
-          <PrivateRoute>
-            <div>Hi, overview</div>
-          </PrivateRoute>
+          <AdminRoute>
+            <AdminOverview />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/admin/dashboard/partner-requests",
+        element: (
+          <AdminRoute>
+            <PartnerRequests />
+          </AdminRoute>
+        ),
+      },
+
+      // Restaurant handlers routes
+      {
+        path: "/restaurant/dashboard/overview",
+        element: (
+          <RestaurantHandlersRoute>
+            <div>Hi, this restaurrant handler</div>
+          </RestaurantHandlersRoute>
         ),
       },
     ],

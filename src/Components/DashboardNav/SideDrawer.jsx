@@ -1,23 +1,24 @@
 import React, { useContext } from "react";
-import toast from "react-hot-toast";
 import { Card, Drawer, List, ListItemPrefix } from "@material-tailwind/react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { NavLink, useNavigate } from "react-router-dom";
 import { FaPowerOff } from "react-icons/fa6";
-import { FaTasks } from "react-icons/fa";
 import { authContext } from "../../Contexts/AuthContext";
+import { MdDashboard } from "react-icons/md";
+import { IoPersonAdd } from "react-icons/io5";
+import useRole from "../../Hooks/useRole";
 
 const SideDrawer = () => {
   const [open, setOpen] = React.useState(false);
 
   let { logOut, user } = useContext(authContext);
   let navigate = useNavigate();
+  let [role] = useRole();
 
   let handleLogOut = () => {
     logOut()
       .then(() => {
         navigate("/");
-        toast.success("Successfully Logged out!");
       })
       .catch((error) => {
         console.log(error);
@@ -44,15 +45,48 @@ const SideDrawer = () => {
               </div>
             </div>
             <List>
-              <NavLink to="/dashboard/overview" onClick={closeDrawer}>
-                <div className="flex p-3 font-bold">
-                  <ListItemPrefix>
-                    <FaTasks fontSize={"20"} />
-                  </ListItemPrefix>
-                  Overview
-                </div>
-              </NavLink>
+              {/* Admin routes */}
+              {role === "admin" && (
+                <NavLink to="/admin/dashboard/overview" onClick={closeDrawer}>
+                  <div className="flex p-3 font-bold">
+                    <ListItemPrefix>
+                      <MdDashboard fontSize={"20"} />
+                    </ListItemPrefix>
+                    Overview
+                  </div>
+                </NavLink>
+              )}
 
+              {role === "admin" && (
+                <NavLink
+                  to="/admin/dashboard/partner-requests"
+                  onClick={closeDrawer}
+                >
+                  <div className="flex p-3 font-bold">
+                    <ListItemPrefix>
+                      <IoPersonAdd fontSize={"20"} />
+                    </ListItemPrefix>
+                    Partner Requests
+                  </div>
+                </NavLink>
+              )}
+
+              {/* Restaurant handlers routes */}
+              {role === "restaurant-handler" && (
+                <NavLink
+                  to="/restaurant/dashboard/overview"
+                  onClick={closeDrawer}
+                >
+                  <div className="flex p-3 font-bold">
+                    <ListItemPrefix>
+                      <MdDashboard fontSize={"20"} />
+                    </ListItemPrefix>
+                    Overview
+                  </div>
+                </NavLink>
+              )}
+
+              {/* Common route */}
               <button className="bg-transparent" onClick={handleLogOut}>
                 <div className="flex p-3 font-bold">
                   <ListItemPrefix>

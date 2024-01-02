@@ -9,11 +9,11 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { imageUpload } from "../../Utilities/ImageUpload/ImageUpload";
 import { authContext } from "../../Contexts/AuthContext";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const Home = () => {
   let axios = useAxios();
-  let { createUser, update, logOut } = useContext(authContext);
+  let { createUser, update, logOut, user } = useContext(authContext);
   let navigate = useNavigate();
 
   let [loading, setLoading] = useState(false);
@@ -156,6 +156,10 @@ const Home = () => {
         setLoading(false);
       });
   };
+
+  if (user) {
+    return <Navigate to="/dashboard/overview" />;
+  }
 
   return (
     <div className="bg-[#EAECCC] min-h-screen flex flex-col justify-center items-center">

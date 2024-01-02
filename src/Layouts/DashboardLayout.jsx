@@ -9,13 +9,13 @@ const DashboardLayout = () => {
   let { user } = useContext(authContext);
 
   return (
-    <div className="">
+    <div className=" pt-4">
       <Toaster position="top-right" reverseOrder={false} />
       <div className=" w-[90%] mx-auto  ">
         {/* Top Banner */}
         <div
           className="flex items-center justify-center bg-blue-500 text-white px-6 py-3.5 rounded 
-          font-[sans-serif] my-4 gap-5"
+          font-[sans-serif] mb-4 pt gap-5"
         >
           <p className="text-base">
             Welcome to your Dashboard{" "}

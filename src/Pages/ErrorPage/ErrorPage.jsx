@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
+import useRole from "../../Hooks/useRole";
+import { useContext } from "react";
+import { authContext } from "../../Contexts/AuthContext";
 
 const ErrorPage = () => {
+  let [role] = useRole();
+  let { user } = useContext(authContext);
   return (
     <div>
       <main className="h-screen w-full flex flex-col justify-center items-center bg-[#1A2238]">
@@ -14,9 +19,25 @@ const ErrorPage = () => {
           <a className="relative inline-block text-sm font-medium text-[#FF6A3D] group active:text-orange-500 focus:outline-none focus:ring">
             <span className="absolute inset-0 transition-transform translate-x-0.5 translate-y-0.5 bg-[#FF6A3D] group-hover:translate-y-0 group-hover:translate-x-0"></span>
 
-            <span className="relative block px-8 py-3 bg-[#1A2238] border border-current">
-              <Link to="/">Go Home</Link>
-            </span>
+            {!user ? (
+              <Link
+                to="/"
+                className="relative block px-8 py-3 bg-[#1A2238] border border-current"
+              >
+                Go Home
+              </Link>
+            ) : (
+              <Link
+                className="relative block px-8 py-3 bg-[#1A2238] border border-current"
+                to={
+                  role === "admin"
+                    ? "/admin/dashboard/overview"
+                    : "/restaurant/dashboard/overview"
+                }
+              >
+                Go Home
+              </Link>
+            )}
           </a>
         </button>
       </main>

@@ -3,15 +3,17 @@ import { useContext, useState } from "react";
 import { Helmet } from "react-helmet";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { authContext } from "../../Contexts/AuthContext";
 import toast from "react-hot-toast";
 import { ImSpinner9 } from "react-icons/im";
+import useRole from "../../Hooks/useRole";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
-  let { login } = useContext(authContext);
+  let { login, user } = useContext(authContext);
   let navigate = useNavigate();
+  let [role] = useRole();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -32,9 +34,14 @@ const Login = () => {
 
     login(formData.email, formData.password)
       .then(() => {
-        navigate(location?.state ? location?.state : "/dashboard/overview", {
-          replace: true,
-        });
+        navigate(
+          role === "admin"
+            ? "/admin/dashboard/overview"
+            : "/restaurant/dashboard/overview",
+          {
+            replace: true,
+          }
+        );
       })
       .catch((error) => {
         setLoading(false);
@@ -53,6 +60,10 @@ const Login = () => {
         }
       });
   };
+
+  if (user) {
+    return <Navigate to="/dashboard/overview" />;
+  }
 
   return (
     <div>

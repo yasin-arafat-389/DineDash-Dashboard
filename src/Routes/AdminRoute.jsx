@@ -1,0 +1,33 @@
+/* eslint-disable react/prop-types */
+import { useContext } from "react";
+import { authContext } from "../Contexts/AuthContext";
+import useRole from "../Hooks/useRole";
+import { Navigate } from "react-router-dom";
+import Loader from "../Utilities/Loader/Loader";
+
+const AdminRoute = ({ children }) => {
+  const { user, loading } = useContext(authContext);
+  const [role, isAdminLoading] = useRole();
+
+  if (loading || isAdminLoading) {
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+
+  if (user && role === "admin") {
+    return children;
+  }
+
+  return (
+    <Navigate state={location.pathname} to="/restaurant/dashboard/overview" />
+  );
+};
+
+export default AdminRoute;
