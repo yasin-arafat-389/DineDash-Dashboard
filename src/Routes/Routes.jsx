@@ -3,6 +3,8 @@ import MainLayout from "../Layouts/MainLayout";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
 import DashboardLayout from "../Layouts/DashboardLayout";
+import Login from "../Pages/Login/Login";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +18,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <div>Login</div>,
+        element: <Login />,
       },
     ],
   },
@@ -27,7 +29,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard/overview",
-        element: <div>Hi, overview</div>,
+        element: (
+          <PrivateRoute>
+            <div>Hi, overview</div>
+          </PrivateRoute>
+        ),
       },
     ],
   },

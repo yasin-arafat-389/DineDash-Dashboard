@@ -58,7 +58,7 @@ const SideDrawer = () => {
                   <ListItemPrefix>
                     <FaPowerOff fontSize={"20"} />
                   </ListItemPrefix>
-                  Sign Out
+                  Log Out
                 </div>
               </button>
             </List>

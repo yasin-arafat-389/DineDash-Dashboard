@@ -9,7 +9,7 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { imageUpload } from "../../Utilities/ImageUpload/ImageUpload";
 import { authContext } from "../../Contexts/AuthContext";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Home = () => {
   let axios = useAxios();
@@ -18,6 +18,8 @@ const Home = () => {
 
   let [loading, setLoading] = useState(false);
   let [nextStep, setNextStep] = useState(false);
+
+  let [restaurant, setRestaurant] = useState("");
 
   let [email, setEmail] = useState("");
   const handleEmailChange = (e) => {
@@ -76,6 +78,8 @@ const Home = () => {
         setLoading(false);
         setNextStep(true);
       }
+
+      setRestaurant(res.data.restaurantName);
     });
   };
 
@@ -110,7 +114,7 @@ const Home = () => {
 
     createUser(email, password)
       .then(() => {
-        update("arafat khana", imgData?.data?.display_url)
+        update(restaurant, imgData?.data?.display_url)
           .then(() => {})
           .catch((error) => {
             console.log(error);
@@ -154,12 +158,12 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div className="bg-[#EAECCC] min-h-screen flex flex-col justify-center items-center">
       <Helmet>
         <title>Register Your Restaurant</title>
       </Helmet>
 
-      <div className="min-h-screen flex flex-col items-center justify-center bg-[#EAECCC]">
+      <div className=" flex flex-col items-center justify-center">
         <div
           className="
           flex flex-col
@@ -314,6 +318,13 @@ const Home = () => {
           </div>
         </div>
       </div>
+
+      <p className="text-sm mt-5 font-bold text-gray-600">
+        Already a partner?{" "}
+        <span className="text-blue-600 hover:underline">
+          <Link to="/login">Login to your dashboard</Link>
+        </span>
+      </p>
     </div>
   );
 };

@@ -14,7 +14,7 @@ const SideBar = () => {
     logOut()
       .then(() => {
         toast.success("Successfully Logged out!");
-        navigate("/");
+        navigate("/login");
       })
       .catch((error) => {
         console.log(error);
@@ -47,7 +47,7 @@ const SideBar = () => {
                 <ListItemPrefix>
                   <FaPowerOff fontSize={"20"} />
                 </ListItemPrefix>
-                Sign Out
+                Log Out
               </div>
             </button>
           </List>

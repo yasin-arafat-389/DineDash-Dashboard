@@ -10,6 +10,7 @@ const DashboardLayout = () => {
 
   return (
     <div className="">
+      <Toaster position="top-right" reverseOrder={false} />
       <div className=" w-[90%] mx-auto  ">
         {/* Top Banner */}
         <div
@@ -29,7 +30,6 @@ const DashboardLayout = () => {
         <div className="flex gap-5 ">
           <SideBar />
           <div className="w-full">
-            <Toaster position="top-center" reverseOrder={false} />
             <Outlet />
           </div>
         </div>
