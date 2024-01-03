@@ -10,11 +10,7 @@ const RestaurantHandlersRoute = ({ children }) => {
   const [role, isAdminLoading] = useRole();
 
   if (loading || isAdminLoading) {
-    return (
-      <div>
-        <Loader />
-      </div>
-    );
+    return <Loader />;
   }
 
   if (!user) {
