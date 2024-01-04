@@ -4,17 +4,24 @@ import useAxios from "../../../Hooks/useAxios";
 import Loader from "../../../Utilities/Loader/Loader";
 import NoDataFound from "../../../Utilities/NoDataFound/NoDataFound";
 import { useState } from "react";
+import { ImSpinner9 } from "react-icons/im";
 
 const PartnerRequests = () => {
   let axios = useAxios();
+
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [details, setDetails] = useState("");
   const handleOpen = (details) => {
     setOpen(!open);
     setDetails(details);
   };
 
-  let { data = [], isLoading } = useQuery({
+  let {
+    data = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["partnerRequests"],
     queryFn: async () => {
       let res = await axios.get("/partner-requests").then();
@@ -23,7 +30,19 @@ const PartnerRequests = () => {
   });
 
   let handleAccept = () => {
-    console.log("H");
+    setLoading(true);
+
+    let partnerDetails = {
+      email: details.email,
+      name: details.restaurantName,
+      thumbnail: details.thumbnail,
+    };
+
+    axios.post("/accept/partner-request", partnerDetails).then(() => {
+      setLoading(false);
+      setOpen(!open);
+      refetch();
+    });
   };
 
   let handleReject = () => {
@@ -135,9 +154,21 @@ const PartnerRequests = () => {
                     </dl>
 
                     <div className="flex justify-center items-center gap-4 pb-4">
-                      <Button className="bg-green-500" onClick={handleAccept}>
-                        Accept
+                      <Button
+                        className="bg-green-500"
+                        disabled={loading ? true : false}
+                        onClick={handleAccept}
+                      >
+                        {loading ? (
+                          <div className="flex items-center justify-center gap-5 ">
+                            <ImSpinner9 className="animate-spin text-[20px]" />
+                            Accepting
+                          </div>
+                        ) : (
+                          "Accept"
+                        )}
                       </Button>
+
                       <Button className="bg-red-500" onClick={handleReject}>
                         Reject
                       </Button>
