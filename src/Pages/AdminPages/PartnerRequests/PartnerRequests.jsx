@@ -11,6 +11,7 @@ const PartnerRequests = () => {
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [rejectloading, setRejectLoading] = useState(false);
   const [details, setDetails] = useState("");
   const handleOpen = (details) => {
     setOpen(!open);
@@ -46,7 +47,12 @@ const PartnerRequests = () => {
   };
 
   let handleReject = () => {
-    console.log("H");
+    setRejectLoading(true);
+    axios.post(`/reject/partner-request?email=${details.email}`).then(() => {
+      setRejectLoading(false);
+      setOpen(!open);
+      refetch();
+    });
   };
 
   if (isLoading) {
@@ -169,8 +175,19 @@ const PartnerRequests = () => {
                         )}
                       </Button>
 
-                      <Button className="bg-red-500" onClick={handleReject}>
-                        Reject
+                      <Button
+                        className="bg-red-500"
+                        disabled={rejectloading ? true : false}
+                        onClick={handleReject}
+                      >
+                        {rejectloading ? (
+                          <div className="flex items-center justify-center gap-5 ">
+                            <ImSpinner9 className="animate-spin text-[20px]" />
+                            Rejecting
+                          </div>
+                        ) : (
+                          "Reject"
+                        )}
                       </Button>
                     </div>
                   </div>
