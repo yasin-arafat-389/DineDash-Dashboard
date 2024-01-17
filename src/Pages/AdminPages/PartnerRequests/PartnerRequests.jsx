@@ -36,7 +36,6 @@ const PartnerRequests = () => {
     let partnerDetails = {
       email: details.email,
       name: details.restaurantName,
-      thumbnail: details.thumbnail,
     };
 
     axios.post("/accept/partner-request", partnerDetails).then(() => {

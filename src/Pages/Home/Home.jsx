@@ -57,7 +57,7 @@ const Home = () => {
           showConfirmButton: false,
           text: "You have not applied for being a partner yet. Please send a partner request from the link below.",
           footer:
-            '<a href="https://dine-dash-client.web.app/" target="_blank">Send a Partner Request Now</a>',
+            '<a href="https://dine-dash-client.web.app/partner-request" target="_blank">Send a Partner Request Now</a>',
         });
         return;
       } else if (res.data.status === "pending") {
@@ -111,6 +111,13 @@ const Home = () => {
       let imageData = await imageUpload(selectedFile, setLoading);
       imgData = imageData;
     }
+
+    axios
+      .post("/register-restaurant", {
+        restaurantName: restaurant,
+        thumbnail: imgData?.data?.display_url,
+      })
+      .then(() => {});
 
     createUser(email, password)
       .then(() => {

@@ -200,7 +200,10 @@ const Login = () => {
             <p className="text-sm font-bold text-gray-600">
               Not a partner yet?{" "}
               <span className="text-blue-600 hover:underline">
-                <Link to="/" target="_blank">
+                <Link
+                  to="https://dine-dash-client.web.app/partner-request"
+                  target="_blank"
+                >
                   Send a Partner Request Now
                 </Link>
               </span>
