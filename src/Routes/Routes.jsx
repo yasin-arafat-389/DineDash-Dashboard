@@ -8,6 +8,7 @@ import AdminOverview from "../Pages/AdminPages/AdminOverview/AdminOverview";
 import PartnerRequests from "../Pages/AdminPages/PartnerRequests/PartnerRequests";
 import AdminRoute from "./AdminRoute";
 import RestaurantHandlersRoute from "./RestaurantHandlersRoute";
+import RiderRegister from "../Pages/RiderRegister/RiderRegister";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/rider-register",
+        element: <RiderRegister />,
       },
       {
         path: "/login",
