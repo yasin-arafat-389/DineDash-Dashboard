@@ -169,9 +169,9 @@ const RiderRegister = () => {
   }
 
   return (
-    <div className="bg-[#EAECCC] min-h-screen flex flex-col justify-center items-center">
+    <div className="bg-gray-100 min-h-screen flex flex-col pt-20">
       <Helmet>
-        <title>Register Your Restaurant</title>
+        <title>Register As a Rider</title>
       </Helmet>
 
       <div className=" flex flex-col items-center justify-center">
@@ -191,10 +191,10 @@ const RiderRegister = () => {
         "
         >
           <div className="font-medium self-center text-xl sm:text-3xl text-gray-800">
-            Register your restaurant
+            Register As a Rider
           </div>
           <div className="mt-4 self-center text-xl sm:text-sm text-gray-800">
-            Enter information about your restaurant carefully
+            Enter the following informations carefully
           </div>
 
           <div className="mt-10">
@@ -330,8 +330,8 @@ const RiderRegister = () => {
         </div>
       </div>
 
-      <p className="text-sm mt-5 font-bold text-gray-600">
-        Already a partner?{" "}
+      <p className="text-sm flex justify-center items-center mt-5 font-bold text-gray-600">
+        Already a rider? &nbsp;
         <span className="text-blue-600 hover:underline">
           <Link to="/login">Login to your dashboard</Link>
         </span>

@@ -47,11 +47,19 @@ const PartnerRequests = () => {
 
   let handleReject = () => {
     setRejectLoading(true);
-    axios.post(`/reject/partner-request?email=${details.email}`).then(() => {
-      setRejectLoading(false);
-      setOpen(!open);
-      refetch();
-    });
+
+    let partnerDetails = {
+      email: details.email,
+      name: details.restaurantName,
+    };
+
+    axios
+      .post(`/reject/partner-request?email=${details.email}`, partnerDetails)
+      .then(() => {
+        setRejectLoading(false);
+        setOpen(!open);
+        refetch();
+      });
   };
 
   if (isLoading) {

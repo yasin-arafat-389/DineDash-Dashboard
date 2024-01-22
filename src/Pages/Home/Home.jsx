@@ -169,7 +169,7 @@ const Home = () => {
   }
 
   return (
-    <div className="bg-[#EAECCC] min-h-screen flex flex-col justify-center items-center">
+    <div className="bg-gray-100 min-h-screen flex flex-col pt-20">
       <Helmet>
         <title>Register Your Restaurant</title>
       </Helmet>
@@ -330,8 +330,8 @@ const Home = () => {
         </div>
       </div>
 
-      <p className="text-sm mt-5 font-bold text-gray-600">
-        Already a partner?{" "}
+      <p className="text-sm flex justify-center items-center mt-5 font-bold text-gray-600">
+        Already a partner? &nbsp;
         <span className="text-blue-600 hover:underline">
           <Link to="/login">Login to your dashboard</Link>
         </span>
