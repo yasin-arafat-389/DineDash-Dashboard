@@ -4,7 +4,7 @@ import { IoPersonAdd } from "react-icons/io5";
 import { FaPowerOff } from "react-icons/fa6";
 import { useContext } from "react";
 import { authContext } from "../../Contexts/AuthContext";
-import { MdDashboard } from "react-icons/md";
+import { MdDashboard, MdDeliveryDining } from "react-icons/md";
 import useRole from "../../Hooks/useRole";
 
 const SideBar = () => {
@@ -53,6 +53,17 @@ const SideBar = () => {
                     <IoPersonAdd fontSize={"20"} />
                   </ListItemPrefix>
                   Partner Requests
+                </div>
+              </NavLink>
+            )}
+
+            {role === "admin" && (
+              <NavLink to="/admin/dashboard/rider-requests">
+                <div className="flex items-center p-3 font-bold">
+                  <ListItemPrefix>
+                    <MdDeliveryDining fontSize={"30"} />
+                  </ListItemPrefix>
+                  Rider Requests
                 </div>
               </NavLink>
             )}

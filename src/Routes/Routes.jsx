@@ -9,6 +9,7 @@ import PartnerRequests from "../Pages/AdminPages/PartnerRequests/PartnerRequests
 import AdminRoute from "./AdminRoute";
 import RestaurantHandlersRoute from "./RestaurantHandlersRoute";
 import RiderRegister from "../Pages/RiderRegister/RiderRegister";
+import RiderRequests from "../Pages/AdminPages/RiderRequests/RiderRequests";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,14 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <PartnerRequests />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/admin/dashboard/rider-requests",
+        element: (
+          <AdminRoute>
+            <RiderRequests />
           </AdminRoute>
         ),
       },

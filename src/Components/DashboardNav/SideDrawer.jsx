@@ -6,6 +6,7 @@ import { FaPowerOff } from "react-icons/fa6";
 import { authContext } from "../../Contexts/AuthContext";
 import { MdDashboard } from "react-icons/md";
 import { IoPersonAdd } from "react-icons/io5";
+import { MdDeliveryDining } from "react-icons/md";
 import useRole from "../../Hooks/useRole";
 
 const SideDrawer = () => {
@@ -67,6 +68,20 @@ const SideDrawer = () => {
                       <IoPersonAdd fontSize={"20"} />
                     </ListItemPrefix>
                     Partner Requests
+                  </div>
+                </NavLink>
+              )}
+
+              {role === "admin" && (
+                <NavLink
+                  to="/admin/dashboard/rider-requests"
+                  onClick={closeDrawer}
+                >
+                  <div className="flex p-3 font-bold">
+                    <ListItemPrefix>
+                      <MdDeliveryDining fontSize={"20"} />
+                    </ListItemPrefix>
+                    Rider Requests
                   </div>
                 </NavLink>
               )}
