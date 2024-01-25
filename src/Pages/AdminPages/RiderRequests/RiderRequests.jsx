@@ -33,12 +33,12 @@ const RiderRequests = () => {
   let handleAccept = () => {
     setLoading(true);
 
-    let partnerDetails = {
+    let riderDetails = {
       email: details.email,
-      name: details.restaurantName,
+      name: details.name,
     };
 
-    axios.post("/accept/partner-request", partnerDetails).then(() => {
+    axios.post("/accept/rider-request", riderDetails).then(() => {
       setLoading(false);
       setOpen(!open);
       refetch();
@@ -48,13 +48,13 @@ const RiderRequests = () => {
   let handleReject = () => {
     setRejectLoading(true);
 
-    let partnerDetails = {
+    let riderDetails = {
       email: details.email,
-      name: details.restaurantName,
+      name: details.name,
     };
 
     axios
-      .post(`/reject/partner-request?email=${details.email}`, partnerDetails)
+      .post(`/reject/rider-request?email=${details.email}`, riderDetails)
       .then(() => {
         setRejectLoading(false);
         setOpen(!open);

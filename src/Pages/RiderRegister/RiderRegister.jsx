@@ -6,10 +6,10 @@ import useAxios from "../../Hooks/useAxios";
 import Swal from "sweetalert2";
 import { ImSpinner9 } from "react-icons/im";
 import { RiLockPasswordFill } from "react-icons/ri";
-import { imageUpload } from "../../Utilities/ImageUpload/ImageUpload";
 import { authContext } from "../../Contexts/AuthContext";
 import toast from "react-hot-toast";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { imageUpload } from "../../Utilities/ImageUpload/ImageUpload";
 
 const RiderRegister = () => {
   let axios = useAxios();
@@ -19,7 +19,9 @@ const RiderRegister = () => {
   let [loading, setLoading] = useState(false);
   let [nextStep, setNextStep] = useState(false);
 
-  let [restaurant, setRestaurant] = useState("");
+  let [riderName, setRiderName] = useState("");
+  let [riderPhone, setRiderPhone] = useState("");
+  let [riderRegion, setRiderRegion] = useState("");
 
   let [email, setEmail] = useState("");
   const handleEmailChange = (e) => {
@@ -49,29 +51,29 @@ const RiderRegister = () => {
       return;
     }
 
-    axios.get(`/partner-request?email=${email}`).then((res) => {
+    axios.get(`/rider-request-status?email=${email}`).then((res) => {
       if (!res.data) {
         setLoading(false);
         Swal.fire({
           icon: "warning",
           showConfirmButton: false,
-          text: "You have not applied for being a partner yet. Please send a partner request from the link below.",
+          text: "You have not applied for being a rider yet. Please send a rider request from the link below.",
           footer:
-            '<a href="https://dine-dash-client.web.app/partner-request" target="_blank">Send a Partner Request Now</a>',
+            '<a href="https://dine-dash-client.web.app/rider-request" target="_blank">Send a Partner Request Now</a>',
         });
         return;
       } else if (res.data.status === "pending") {
         setLoading(false);
         Swal.fire({
           icon: "warning",
-          text: "Your partner request is still under review. You will get an email once admin approves your request.",
+          text: "Your rider request is still under review. You will get an email once admin approves your request.",
         });
         return;
       } else if (res.data.status === "rejected") {
         setLoading(false);
         Swal.fire({
           icon: "warning",
-          text: "We are extremely sorry to inform you that your partner request has been rejected. ",
+          text: "We are extremely sorry to inform you that your rider request has been rejected. ",
         });
         return;
       } else {
@@ -79,7 +81,9 @@ const RiderRegister = () => {
         setNextStep(true);
       }
 
-      setRestaurant(res.data.restaurantName);
+      setRiderName(res.data.name);
+      setRiderPhone(res.data.phone);
+      setRiderRegion(res.data.region);
     });
   };
 
@@ -99,7 +103,7 @@ const RiderRegister = () => {
     if (!selectedFile) {
       Swal.fire({
         icon: "warning",
-        text: "You must select your restaurant logo",
+        text: "You must select your profile picture",
       });
       setLoading(false);
       return;
@@ -113,15 +117,16 @@ const RiderRegister = () => {
     }
 
     axios
-      .post("/register-restaurant", {
-        restaurantName: restaurant,
-        thumbnail: imgData?.data?.display_url,
+      .post("/register-rider", {
+        name: riderName,
+        phone: riderPhone,
+        region: riderRegion,
       })
       .then(() => {});
 
     createUser(email, password)
       .then(() => {
-        update(restaurant, imgData?.data?.display_url)
+        update(riderName, imgData?.data?.display_url)
           .then(() => {})
           .catch((error) => {
             console.log(error);
@@ -295,7 +300,7 @@ const RiderRegister = () => {
                       <span className="text-base line-clamp-1 font-medium">
                         {selectedFile
                           ? selectedFile.name
-                          : "Select your restaurant logo"}
+                          : "Select your profile picture"}
                       </span>
                       <input
                         type="file"
