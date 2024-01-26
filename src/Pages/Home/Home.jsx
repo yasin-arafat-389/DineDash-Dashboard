@@ -74,6 +74,13 @@ const Home = () => {
           text: "We are extremely sorry to inform you that your partner request has been rejected. ",
         });
         return;
+      } else if (res.data.resolved === true) {
+        setLoading(false);
+        Swal.fire({
+          icon: "success",
+          text: "You are already a partner. Login to your dashboard to manage orders.",
+        });
+        return;
       } else {
         setLoading(false);
         setNextStep(true);
@@ -114,6 +121,7 @@ const Home = () => {
 
     axios
       .post("/register-restaurant", {
+        email: email,
         restaurantName: restaurant,
         thumbnail: imgData?.data?.display_url,
       })

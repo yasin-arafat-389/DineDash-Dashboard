@@ -76,6 +76,13 @@ const RiderRegister = () => {
           text: "We are extremely sorry to inform you that your rider request has been rejected. ",
         });
         return;
+      } else if (res.data.resolved === true) {
+        setLoading(false);
+        Swal.fire({
+          icon: "success",
+          text: "You are already a rider. Login to your dashboard.",
+        });
+        return;
       } else {
         setLoading(false);
         setNextStep(true);
@@ -118,6 +125,7 @@ const RiderRegister = () => {
 
     axios
       .post("/register-rider", {
+        email: email,
         name: riderName,
         phone: riderPhone,
         region: riderRegion,
