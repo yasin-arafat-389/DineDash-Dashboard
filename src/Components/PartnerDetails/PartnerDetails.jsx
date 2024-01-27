@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../../Utilities/Loader/Loader";
-import { Dialog } from "@material-tailwind/react";
+import { Button, Dialog } from "@material-tailwind/react";
 import { useState } from "react";
 import useAxios from "../../Hooks/useAxios";
 
@@ -32,31 +32,77 @@ const PartnerDetails = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-7 mt-5 mb-10">
-        {restaurants.map((item, index) => (
-          <div className="" key={index}>
-            <div className="bg-gray-200 font-semibold text-center rounded-3xl border shadow-lg p-10 max-w-xs">
-              <img
-                className="mb-3 w-32 h-32 object-cover border-4 border-blue-500 rounded-full shadow-lg mx-auto"
-                src={item.restaurant.thumbnail}
-              />
-              <h1 className="text-lg text-gray-700">
-                {" "}
-                {item.restaurant.name}{" "}
-              </h1>
-
-              <button
-                onClick={() => {
-                  handleOpen(item.restaurant);
-                  setOfferedFoods(item.foods);
-                }}
-                className="bg-indigo-600 px-8 py-2 mt-4 rounded-3xl text-gray-100 font-semibold tracking-wide"
-              >
-                See Details
-              </button>
+      <div>
+        <div className="">
+          <section className="antialiased text-gray-600 mt-5">
+            <div className="flex flex-col h-full ">
+              <div className="w-full bg-gray-200 shadow-lg rounded-sm border border-gray-200">
+                <div className="p-3">
+                  <div className="overflow-x-auto">
+                    <table className="table-auto w-full ">
+                      <thead className="text-md font-semibold uppercase text-white bg-blue-500">
+                        <tr>
+                          <th className="p-2 whitespace-nowrap">
+                            <div className="font-semibold text-center capitalize">
+                              Name
+                            </div>
+                          </th>
+                          <th className="p-2 whitespace-nowrap">
+                            <div className="font-semibold capitalize text-center">
+                              Total Foods
+                            </div>
+                          </th>
+                          <th className="p-2 whitespace-nowrap">
+                            <div className="font-semibold text-center capitalize">
+                              Action
+                            </div>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-sm divide-y divide-gray-100">
+                        {restaurants.map((item, index) => (
+                          <tr key={index}>
+                            <td className="p-2 whitespace-nowrap">
+                              <div className="flex items-center">
+                                <div className="flex-shrink-0 mr-2 sm:mr-3">
+                                  <img
+                                    className="w-20 h-20 rounded-full border-2 border-blue-600"
+                                    src={item.restaurant.thumbnail}
+                                  />
+                                </div>
+                                <div className="font-bold text-xl text-gray-800">
+                                  {item.restaurant.name}
+                                </div>
+                              </div>
+                            </td>
+                            <td className="p-2 whitespace-nowrap">
+                              <div className="text-center text-xl font-bold text-gray-800">
+                                {item.foods.length}
+                              </div>
+                            </td>
+                            <td className="p-2 whitespace-nowrap">
+                              <div className="text-center font-medium text-green-500">
+                                <Button
+                                  className="bg-indigo-600"
+                                  onClick={() => {
+                                    handleOpen(item.restaurant);
+                                    setOfferedFoods(item.foods);
+                                  }}
+                                >
+                                  See Details
+                                </Button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        ))}
+          </section>
+        </div>
       </div>
 
       {/* Modal to see details */}
