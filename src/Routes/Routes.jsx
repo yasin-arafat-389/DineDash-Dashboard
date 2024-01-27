@@ -10,6 +10,7 @@ import AdminRoute from "./AdminRoute";
 import RestaurantHandlersRoute from "./RestaurantHandlersRoute";
 import RiderRegister from "../Pages/RiderRegister/RiderRegister";
 import RiderRequests from "../Pages/AdminPages/RiderRequests/RiderRequests";
+import PartnerOverview from "../Pages/PartnerPages/PartnerOverview/PartnerOverview";
 
 const router = createBrowserRouter([
   {
@@ -71,7 +72,7 @@ const router = createBrowserRouter([
         path: "/restaurant/dashboard/overview",
         element: (
           <RestaurantHandlersRoute>
-            <div>Hi, this restaurrant handler</div>
+            <PartnerOverview />
           </RestaurantHandlersRoute>
         ),
       },
