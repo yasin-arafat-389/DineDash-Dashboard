@@ -15,8 +15,6 @@ const PartnerDetails = () => {
     },
   });
 
-  console.log(restaurants);
-
   const [open, setOpen] = useState(false);
   const [details, setDetails] = useState(false);
   const [offeredFoods, setOfferedFoods] = useState([]);
@@ -40,7 +38,7 @@ const PartnerDetails = () => {
                 <div className="p-3">
                   <div className="overflow-x-auto">
                     <table className="table-auto w-full ">
-                      <thead className="text-md font-semibold uppercase text-white bg-blue-500">
+                      <thead className="text-md font-semibold uppercase text-white bg-[#0866ff]">
                         <tr>
                           <th className="p-2 whitespace-nowrap">
                             <div className="font-semibold text-center capitalize">
@@ -83,7 +81,7 @@ const PartnerDetails = () => {
                             <td className="p-2 whitespace-nowrap">
                               <div className="text-center font-medium text-green-500">
                                 <Button
-                                  className="bg-indigo-600"
+                                  className="bg-[#0866ff]"
                                   onClick={() => {
                                     handleOpen(item.restaurant);
                                     setOfferedFoods(item.foods);

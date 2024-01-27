@@ -6,6 +6,7 @@ import useTotalRestaurant from "../../../Hooks/useTotalRestaurant";
 import useTotalRider from "../../../Hooks/useTotalRider";
 import useTotalOrdersPlaced from "../../../Hooks/useTotalOrdersPlaced";
 import PartnerDetails from "../../../Components/PartnerDetails/PartnerDetails";
+import RiderDetails from "../../../Components/RiderDetails/RiderDetails";
 
 const AdminOverview = () => {
   let [totalRestaurant, totalRestaurantLoading] = useTotalRestaurant();
@@ -17,7 +18,7 @@ const AdminOverview = () => {
   }
 
   return (
-    <div>
+    <div className="mb-20">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 ">
         {/* Card 1 */}
         <div className="flex items-center bg-gray-200 border rounded-sm overflow-hidden shadow">
@@ -54,14 +55,24 @@ const AdminOverview = () => {
       </div>
 
       <h2 className="flex flex-row flex-nowrap items-center mt-12">
-        <span className="flex-grow block border-t border-black"></span>
-        <span className="flex-none block mx-4 px-4 py-2.5 text-xl rounded leading-none font-medium bg-black text-white">
+        <span className="flex-grow block border-t border-green-600"></span>
+        <span className="flex-none block mx-4 px-4 py-2.5 text-xl rounded leading-none font-medium bg-green-400 text-white">
           My Partners
         </span>
-        <span className="flex-grow block border-t border-black"></span>
+        <span className="flex-grow block border-t border-green-600"></span>
       </h2>
 
       <PartnerDetails />
+
+      <h2 className="flex flex-row flex-nowrap items-center mt-12">
+        <span className="flex-grow block border-t border-green-600"></span>
+        <span className="flex-none block mx-4 px-4 py-2.5 text-xl rounded leading-none font-medium bg-green-400 text-white">
+          Registered Riders
+        </span>
+        <span className="flex-grow block border-t border-green-600"></span>
+      </h2>
+
+      <RiderDetails />
     </div>
   );
 };
