@@ -7,6 +7,9 @@ import { authContext } from "../../Contexts/AuthContext";
 import { MdDashboard } from "react-icons/md";
 import { IoPersonAdd } from "react-icons/io5";
 import { MdDeliveryDining } from "react-icons/md";
+import { IoIosNotifications } from "react-icons/io";
+import { PiHamburgerFill } from "react-icons/pi";
+import { IoMdAddCircle } from "react-icons/io";
 import useRole from "../../Hooks/useRole";
 
 const SideDrawer = () => {
@@ -97,6 +100,48 @@ const SideDrawer = () => {
                       <MdDashboard fontSize={"20"} />
                     </ListItemPrefix>
                     Overview
+                  </div>
+                </NavLink>
+              )}
+
+              {role === "restaurant-handler" && (
+                <NavLink
+                  to="/restaurant/dashboard/orders"
+                  onClick={closeDrawer}
+                >
+                  <div className="flex p-3 font-bold">
+                    <ListItemPrefix>
+                      <IoIosNotifications fontSize={"20"} />
+                    </ListItemPrefix>
+                    Orders
+                  </div>
+                </NavLink>
+              )}
+
+              {role === "restaurant-handler" && (
+                <NavLink
+                  to="/restaurant/dashboard/custom-burger"
+                  onClick={closeDrawer}
+                >
+                  <div className="flex p-3 font-bold">
+                    <ListItemPrefix>
+                      <PiHamburgerFill fontSize={"20"} />
+                    </ListItemPrefix>
+                    Custom Burger
+                  </div>
+                </NavLink>
+              )}
+
+              {role === "restaurant-handler" && (
+                <NavLink
+                  to="/restaurant/dashboard/add-new-food"
+                  onClick={closeDrawer}
+                >
+                  <div className="flex p-3 font-bold">
+                    <ListItemPrefix>
+                      <IoMdAddCircle fontSize={"20"} />
+                    </ListItemPrefix>
+                    Add New Food
                   </div>
                 </NavLink>
               )}

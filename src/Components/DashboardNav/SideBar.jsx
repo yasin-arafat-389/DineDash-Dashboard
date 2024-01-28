@@ -6,6 +6,8 @@ import { useContext } from "react";
 import { authContext } from "../../Contexts/AuthContext";
 import { MdDashboard, MdDeliveryDining } from "react-icons/md";
 import useRole from "../../Hooks/useRole";
+import { IoIosNotifications, IoMdAddCircle } from "react-icons/io";
+import { PiHamburgerFill } from "react-icons/pi";
 
 const SideBar = () => {
   let { logOut, user } = useContext(authContext);
@@ -76,6 +78,39 @@ const SideBar = () => {
                     <MdDashboard fontSize={"20"} />
                   </ListItemPrefix>
                   Overview
+                </div>
+              </NavLink>
+            )}
+
+            {role === "restaurant-handler" && (
+              <NavLink to="/restaurant/dashboard/orders">
+                <div className="flex p-3 font-bold">
+                  <ListItemPrefix>
+                    <IoIosNotifications fontSize={"20"} />
+                  </ListItemPrefix>
+                  Orders
+                </div>
+              </NavLink>
+            )}
+
+            {role === "restaurant-handler" && (
+              <NavLink to="/restaurant/dashboard/custom-burger">
+                <div className="flex p-3 font-bold">
+                  <ListItemPrefix>
+                    <PiHamburgerFill fontSize={"20"} />
+                  </ListItemPrefix>
+                  Custom Burger
+                </div>
+              </NavLink>
+            )}
+
+            {role === "restaurant-handler" && (
+              <NavLink to="/restaurant/dashboard/add-new-food">
+                <div className="flex p-3 font-bold">
+                  <ListItemPrefix>
+                    <IoMdAddCircle fontSize={"20"} />
+                  </ListItemPrefix>
+                  Add New Food
                 </div>
               </NavLink>
             )}

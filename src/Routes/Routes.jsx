@@ -11,6 +11,9 @@ import RestaurantHandlersRoute from "./RestaurantHandlersRoute";
 import RiderRegister from "../Pages/RiderRegister/RiderRegister";
 import RiderRequests from "../Pages/AdminPages/RiderRequests/RiderRequests";
 import PartnerOverview from "../Pages/PartnerPages/PartnerOverview/PartnerOverview";
+import Orders from "../Pages/PartnerPages/Orders/Orders";
+import CustomBurger from "../Pages/PartnerPages/CustomBurger/CustomBurger";
+import AddNewFood from "../Pages/PartnerPages/AddNewFood/AddNewFood";
 
 const router = createBrowserRouter([
   {
@@ -73,6 +76,30 @@ const router = createBrowserRouter([
         element: (
           <RestaurantHandlersRoute>
             <PartnerOverview />
+          </RestaurantHandlersRoute>
+        ),
+      },
+      {
+        path: "/restaurant/dashboard/orders",
+        element: (
+          <RestaurantHandlersRoute>
+            <Orders />
+          </RestaurantHandlersRoute>
+        ),
+      },
+      {
+        path: "/restaurant/dashboard/custom-burger",
+        element: (
+          <RestaurantHandlersRoute>
+            <CustomBurger />
+          </RestaurantHandlersRoute>
+        ),
+      },
+      {
+        path: "/restaurant/dashboard/add-new-food",
+        element: (
+          <RestaurantHandlersRoute>
+            <AddNewFood />
           </RestaurantHandlersRoute>
         ),
       },
