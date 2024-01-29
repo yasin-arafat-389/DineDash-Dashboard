@@ -4,13 +4,23 @@ import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../../Hooks/useAxios";
 import Loader from "../../../Utilities/Loader/Loader";
 import NoDataFound from "../../../Utilities/NoDataFound/NoDataFound";
-import { Button, Dialog } from "@material-tailwind/react";
+import { Button, Chip, Dialog } from "@material-tailwind/react";
+import { MdOutlineCallReceived } from "react-icons/md";
+import { PiCookingPotFill } from "react-icons/pi";
+import { MdDeliveryDining } from "react-icons/md";
+import { FaCheckCircle } from "react-icons/fa";
+import { MdCancel } from "react-icons/md";
+import { ImSpinner9 } from "react-icons/im";
 
 const Orders = () => {
   let { user } = useContext(authContext);
   let axios = useAxios();
 
-  let { data: orders = [], isLoading } = useQuery({
+  let {
+    data: orders = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["ordersFilteredByRestaurant"],
     queryFn: async () => {
       let res = await axios
@@ -20,20 +30,45 @@ const Orders = () => {
     },
   });
 
-  let orderedFoods = [];
-  orders.forEach((item) => {
-    orderedFoods = orderedFoods.concat(item.cartFood);
-  });
-
   const [open, setOpen] = useState(false);
   const [foodDetails, setFoodDetails] = useState(false);
+  const [customerInfo, setCustomerInfo] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [loadingReject, setLoadingReject] = useState(false);
 
-  const handleOpen = (foodDetails) => {
+  const handleOpen = (foodDetails, customerInfo) => {
     setOpen(!open);
     setFoodDetails(foodDetails);
+    setCustomerInfo(customerInfo);
   };
 
-  console.log(foodDetails);
+  const handleAcceptOrder = () => {
+    setLoading(true);
+
+    axios
+      .post(`/accept/order/regular`, {
+        orderId: foodDetails.orderId,
+      })
+      .then(() => {
+        setLoading(false);
+        setOpen(!open);
+        refetch();
+      });
+  };
+
+  const handleRejectOrder = () => {
+    setLoadingReject(true);
+
+    axios
+      .post(`/reject/order/regular`, {
+        orderId: foodDetails.orderId,
+      })
+      .then(() => {
+        setLoadingReject(false);
+        setOpen(!open);
+        refetch();
+      });
+  };
 
   if (isLoading) {
     return <Loader />;
@@ -67,6 +102,11 @@ const Orders = () => {
                               </div>
                             </th>
                             <th className="p-2 whitespace-nowrap">
+                              <div className="font-semibold capitalize text-center">
+                                Status
+                              </div>
+                            </th>
+                            <th className="p-2 whitespace-nowrap">
                               <div className="font-semibold text-center capitalize">
                                 Action
                               </div>
@@ -74,38 +114,94 @@ const Orders = () => {
                           </tr>
                         </thead>
                         <tbody className="text-sm divide-y divide-gray-100">
-                          {orderedFoods.map((item, index) => (
-                            <tr key={index}>
-                              <td className="p-2 whitespace-nowrap">
-                                <div className="flex items-center">
-                                  <div className="flex-shrink-0 mr-2 sm:mr-3">
-                                    <img
-                                      className="w-20 h-20 rounded-full border-2 border-blue-600"
-                                      src={item.image}
-                                    />
+                          {orders.map((customerData) =>
+                            customerData.cartFood.map((item, index) => (
+                              <tr key={index}>
+                                <td className="p-2 whitespace-nowrap">
+                                  <div className="flex items-center justify-center">
+                                    <div className="font-bold text-xl text-gray-800">
+                                      {item.name}
+                                    </div>
                                   </div>
-                                  <div className="font-bold text-xl text-gray-800">
-                                    {item.name}
+                                </td>
+                                <td className="p-2 whitespace-nowrap">
+                                  <div className="text-center text-xl font-bold text-gray-800">
+                                    ৳ {item.totalPrice}
                                   </div>
-                                </div>
-                              </td>
-                              <td className="p-2 whitespace-nowrap">
-                                <div className="text-center text-xl font-bold text-gray-800">
-                                  ৳ {item.totalPrice}
-                                </div>
-                              </td>
-                              <td className="p-2 whitespace-nowrap">
-                                <div className="text-center font-medium text-green-500">
-                                  <Button
-                                    onClick={() => handleOpen(item)}
-                                    className="bg-[#0866ff]"
-                                  >
-                                    See Details
-                                  </Button>
-                                </div>
-                              </td>
-                            </tr>
-                          ))}
+                                </td>
+                                <td className="p-2 whitespace-nowrap">
+                                  <div className="text-center font-medium text-green-500">
+                                    {/* Conditional Chip */}
+                                    <div
+                                      className={`custom-chip text-base font-bold w-[80%] mx-auto py-1 rounded-lg capitalize flex justify-center items-center gap-2 ${
+                                        item.status === "order received" &&
+                                        "bg-brown-500 text-white"
+                                      } ${
+                                        item.status === "cooking" &&
+                                        "bg-indigo-500 text-white"
+                                      } ${
+                                        item.status === "out for delivery" &&
+                                        "bg-teal-500 text-white"
+                                      } ${
+                                        item.status === "completed" &&
+                                        "bg-green-500 text-white"
+                                      } ${
+                                        item.status === "cancelled" &&
+                                        "bg-red-500 text-white"
+                                      }`}
+                                    >
+                                      {item.status === "order received" && (
+                                        <MdOutlineCallReceived size={"20"} />
+                                      )}
+                                      {item.status === "cooking" && (
+                                        <PiCookingPotFill size={"30"} />
+                                      )}
+                                      {item.status === "out for delivery" && (
+                                        <MdDeliveryDining size={"30"} />
+                                      )}
+                                      {item.status === "completed" && (
+                                        <FaCheckCircle size={"20"} />
+                                      )}
+                                      {item.status === "cancelled" && (
+                                        <MdCancel size={"20"} />
+                                      )}
+                                      <span>{item.status}</span>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td className="p-2 whitespace-nowrap">
+                                  <div className="text-center font-bold text-lg text-gray-800">
+                                    {item.status === "cancelled" && (
+                                      <div>N/A</div>
+                                    )}
+                                    {item.status === "out for delivery" && (
+                                      <div>N/A</div>
+                                    )}
+                                    {item.status === "completed" && (
+                                      <div>N/A</div>
+                                    )}
+
+                                    {item.status === "order received" && (
+                                      <Button
+                                        onClick={() =>
+                                          handleOpen(item, customerData)
+                                        }
+                                        className="bg-[#0866ff]"
+                                      >
+                                        See Details
+                                      </Button>
+                                    )}
+
+                                    {item.status === "cooking" && (
+                                      <Button className="bg-light-green-500 capitalize">
+                                        Ready To Deliver
+                                      </Button>
+                                    )}
+                                  </div>
+                                </td>
+                              </tr>
+                            ))
+                          )}
                         </tbody>
                       </table>
                     </div>
@@ -114,7 +210,7 @@ const Orders = () => {
               </div>
             </section>
 
-            <Dialog className="p-3" open={open} handler={handleOpen}>
+            <Dialog className="p-3" size="lg" open={open} handler={handleOpen}>
               <div className="flex gap-5">
                 <div className="image-and-title flex flex-col justify-center w-2/5">
                   <img
@@ -124,7 +220,84 @@ const Orders = () => {
                   />
                 </div>
 
-                <div>Hi</div>
+                <div className="flex flex-col w-3/5">
+                  <div className="w-full bg-amber-500 text-center text-black text-xl rounded-lg p-1 font-bold">
+                    {foodDetails.name}
+                  </div>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    <Chip
+                      value={`Quantity: ${foodDetails.quantity}`}
+                      className="capitalize text-white text-base bg-gray-600"
+                    />
+
+                    <Chip
+                      value={`Unit Price: ৳ ${foodDetails.price}.00`}
+                      className="capitalize text-white text-base bg-gray-600"
+                    />
+
+                    <Chip
+                      value={`Total Price: ৳ ${foodDetails.totalPrice}.00`}
+                      className="capitalize text-white text-base bg-gray-600"
+                    />
+
+                    <Chip
+                      value={`Customer: ${customerInfo?.name}`}
+                      className="capitalize text-white text-base bg-gray-600"
+                    />
+
+                    <Chip
+                      value={`Phone: ${customerInfo?.phone}`}
+                      className="capitalize text-white text-base bg-gray-600"
+                    />
+
+                    <Chip
+                      value={`Address: ${customerInfo?.address}`}
+                      className="capitalize text-white text-base bg-gray-600"
+                    />
+
+                    <Chip
+                      value={`region: ${customerInfo?.region}`}
+                      className="capitalize text-white text-base bg-gray-600"
+                    />
+
+                    <Chip
+                      value={`Payment: ${customerInfo?.paymentMethod}`}
+                      className="capitalize text-white text-base bg-gray-600"
+                    />
+                  </div>
+
+                  <div className="mt-5 flex gap-3">
+                    <Button
+                      className="capitalize bg-green-500"
+                      onClick={handleAcceptOrder}
+                      disabled={loading ? true : false}
+                    >
+                      {loading ? (
+                        <div className="flex items-center justify-center gap-4">
+                          <ImSpinner9 className="animate-spin text-[20px]" />
+                          Accepting
+                        </div>
+                      ) : (
+                        "Accept Order"
+                      )}
+                    </Button>
+
+                    <Button
+                      className="capitalize bg-red-500"
+                      onClick={handleRejectOrder}
+                      disabled={loadingReject ? true : false}
+                    >
+                      {loadingReject ? (
+                        <div className="flex items-center justify-center gap-4">
+                          <ImSpinner9 className="animate-spin text-[20px]" />
+                          Rejecting
+                        </div>
+                      ) : (
+                        "Reject Order"
+                      )}
+                    </Button>
+                  </div>
+                </div>
               </div>
             </Dialog>
           </div>
