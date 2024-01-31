@@ -11,6 +11,7 @@ import { MdDeliveryDining } from "react-icons/md";
 import { FaCheckCircle } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
 import { ImSpinner9 } from "react-icons/im";
+import { IoWarningOutline } from "react-icons/io5";
 
 const Orders = () => {
   let { user } = useContext(authContext);
@@ -35,6 +36,9 @@ const Orders = () => {
   const [customerInfo, setCustomerInfo] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadingReject, setLoadingReject] = useState(false);
+  const [loadingDeliverOrder, setLoadingDeliverOrder] = useState(false);
+  const [openReadyToDeliverModal, setOpenReadyToDeliverModal] = useState(false);
+  const [foodInfo, setFoodInfo] = useState(false);
 
   const handleOpen = (foodDetails, customerInfo) => {
     setOpen(!open);
@@ -68,6 +72,15 @@ const Orders = () => {
         setOpen(!open);
         refetch();
       });
+  };
+
+  const openConfirmation = (foodInfo) => {
+    setOpenReadyToDeliverModal(!openReadyToDeliverModal);
+    setFoodInfo(foodInfo);
+  };
+
+  const handleDeliverOrder = () => {
+    setLoadingDeliverOrder(true);
   };
 
   if (isLoading) {
@@ -193,7 +206,10 @@ const Orders = () => {
                                     )}
 
                                     {item.status === "cooking" && (
-                                      <Button className="bg-light-green-500 capitalize">
+                                      <Button
+                                        className="bg-light-green-500 capitalize"
+                                        onClick={() => openConfirmation(item)}
+                                      >
                                         Ready To Deliver
                                       </Button>
                                     )}
@@ -210,6 +226,7 @@ const Orders = () => {
               </div>
             </section>
 
+            {/* Order Details Modal */}
             <Dialog className="p-3" size="lg" open={open} handler={handleOpen}>
               <div className="flex gap-5">
                 <div className="image-and-title flex flex-col justify-center w-2/5">
@@ -296,6 +313,40 @@ const Orders = () => {
                         "Reject Order"
                       )}
                     </Button>
+                  </div>
+                </div>
+              </div>
+            </Dialog>
+
+            {/* Ready to deliver confirmation modal */}
+            <Dialog
+              open={openReadyToDeliverModal}
+              handler={openConfirmation}
+              className="bg-transparent"
+            >
+              <div>
+                <div className="w-full flex flex-col p-4 relative items-center justify-center bg-gray-800 border border-gray-800 shadow-lg rounded-2xl">
+                  <div className="">
+                    <div className="text-center p-3 flex-auto justify-center">
+                      <div className="flex justify-center">
+                        <IoWarningOutline size={"80"} color="yellow" />
+                      </div>
+                      <h2 className="text-xl font-bold py-4 text-gray-200">
+                        Are you sure{" "}
+                        <span className="text-blue-500">{foodInfo.name}</span>{" "}
+                        is ready to be delivered?
+                      </h2>
+                    </div>
+                    <div className="flex gap-4 justify-center items-center">
+                      <Button
+                        className="bg-green-500"
+                        onClick={handleDeliverOrder}
+                      >
+                        Yes
+                      </Button>
+
+                      <Button className="bg-red-500">Cancel</Button>
+                    </div>
                   </div>
                 </div>
               </div>
