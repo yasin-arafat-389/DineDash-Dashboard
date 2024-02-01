@@ -29,7 +29,7 @@ const DashboardLayout = () => {
 
         <div className="flex gap-5 ">
           <SideBar />
-          <div className="w-full">
+          <div className="w-full h-full">
             <Outlet />
           </div>
         </div>

@@ -14,6 +14,7 @@ import PartnerOverview from "../Pages/PartnerPages/PartnerOverview/PartnerOvervi
 import Orders from "../Pages/PartnerPages/Orders/Orders";
 import CustomBurger from "../Pages/PartnerPages/CustomBurger/CustomBurger";
 import AddNewFood from "../Pages/PartnerPages/AddNewFood/AddNewFood";
+import MyFoods from "../Pages/PartnerPages/MyFoods/MyFoods";
 
 const router = createBrowserRouter([
   {
@@ -100,6 +101,14 @@ const router = createBrowserRouter([
         element: (
           <RestaurantHandlersRoute>
             <AddNewFood />
+          </RestaurantHandlersRoute>
+        ),
+      },
+      {
+        path: "/restaurant/dashboard/my-foods",
+        element: (
+          <RestaurantHandlersRoute>
+            <MyFoods />
           </RestaurantHandlersRoute>
         ),
       },

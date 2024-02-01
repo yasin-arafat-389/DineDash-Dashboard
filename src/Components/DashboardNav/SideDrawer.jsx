@@ -11,6 +11,7 @@ import { IoIosNotifications } from "react-icons/io";
 import { PiHamburgerFill } from "react-icons/pi";
 import { IoMdAddCircle } from "react-icons/io";
 import useRole from "../../Hooks/useRole";
+import { IoFastFood } from "react-icons/io5";
 
 const SideDrawer = () => {
   const [open, setOpen] = React.useState(false);
@@ -43,7 +44,7 @@ const SideDrawer = () => {
               <div className="mb-2 p-4 flex items-center gap-3">
                 <img
                   src={user?.photoURL || "https://i.ibb.co/HN9NtYY/user.png"}
-                  className="w-[50px] h-[50px] rounded-full object-cover"
+                  className="w-[60px] h-[60px] border-2 border-blue-500 rounded-full object-cover"
                 />
                 <h1 className="text-sm font-bold">{user?.displayName}</h1>
               </div>
@@ -142,6 +143,20 @@ const SideDrawer = () => {
                       <IoMdAddCircle fontSize={"20"} />
                     </ListItemPrefix>
                     Add New Food
+                  </div>
+                </NavLink>
+              )}
+
+              {role === "restaurant-handler" && (
+                <NavLink
+                  to="/restaurant/dashboard/my-foods"
+                  onClick={closeDrawer}
+                >
+                  <div className="flex p-3 font-bold">
+                    <ListItemPrefix>
+                      <IoFastFood fontSize={"20"} />
+                    </ListItemPrefix>
+                    My Foods
                   </div>
                 </NavLink>
               )}

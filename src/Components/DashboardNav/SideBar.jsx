@@ -1,6 +1,6 @@
 import { List, ListItemPrefix } from "@material-tailwind/react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { IoPersonAdd } from "react-icons/io5";
+import { IoFastFood, IoPersonAdd } from "react-icons/io5";
 import { FaPowerOff } from "react-icons/fa6";
 import { useContext } from "react";
 import { authContext } from "../../Contexts/AuthContext";
@@ -31,7 +31,7 @@ const SideBar = () => {
           <div className="mb-2 p-4 flex items-center gap-3">
             <img
               src={user?.photoURL || "https://i.ibb.co/HN9NtYY/user.png"}
-              className="w-[50px] h-[50px] rounded-full object-cover"
+              className="w-[60px] h-[60px] border-2 border-blue-500 rounded-full object-cover"
             />
             <h1 className="text-lg font-bold">{user?.displayName}</h1>
           </div>
@@ -111,6 +111,17 @@ const SideBar = () => {
                     <IoMdAddCircle fontSize={"20"} />
                   </ListItemPrefix>
                   Add New Food
+                </div>
+              </NavLink>
+            )}
+
+            {role === "restaurant-handler" && (
+              <NavLink to="/restaurant/dashboard/my-foods">
+                <div className="flex p-3 font-bold">
+                  <ListItemPrefix>
+                    <IoFastFood fontSize={"20"} />
+                  </ListItemPrefix>
+                  My Foods
                 </div>
               </NavLink>
             )}
