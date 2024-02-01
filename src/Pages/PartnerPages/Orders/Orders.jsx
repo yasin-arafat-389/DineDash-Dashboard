@@ -81,6 +81,16 @@ const Orders = () => {
 
   const handleDeliverOrder = () => {
     setLoadingDeliverOrder(true);
+
+    axios
+      .post(`/deliver/order/regular`, {
+        orderId: foodInfo.orderId,
+      })
+      .then(() => {
+        setLoadingDeliverOrder(false);
+        setOpenReadyToDeliverModal(!openReadyToDeliverModal);
+        refetch();
+      });
   };
 
   if (isLoading) {
@@ -325,13 +335,16 @@ const Orders = () => {
               className="bg-transparent"
             >
               <div>
-                <div className="w-full flex flex-col p-4 relative items-center justify-center bg-gray-800 border border-gray-800 shadow-lg rounded-2xl">
+                <div className="w-full flex flex-col p-4 relative items-center justify-center bg-white border border-gray-800 shadow-lg rounded-2xl">
                   <div className="">
                     <div className="text-center p-3 flex-auto justify-center">
                       <div className="flex justify-center">
-                        <IoWarningOutline size={"80"} color="yellow" />
+                        <IoWarningOutline
+                          size={"80"}
+                          className="text-yellow-700"
+                        />
                       </div>
-                      <h2 className="text-xl font-bold py-4 text-gray-200">
+                      <h2 className="text-xl font-bold py-4 text-gray-800">
                         Are you sure{" "}
                         <span className="text-blue-500">{foodInfo.name}</span>{" "}
                         is ready to be delivered?
@@ -341,11 +354,27 @@ const Orders = () => {
                       <Button
                         className="bg-green-500"
                         onClick={handleDeliverOrder}
+                        disabled={loadingDeliverOrder ? true : false}
                       >
-                        Yes
+                        {loadingDeliverOrder ? (
+                          <div className="flex items-center justify-center gap-4">
+                            <ImSpinner9 className="animate-spin text-[20px]" />
+                            Delivering
+                          </div>
+                        ) : (
+                          "Yes"
+                        )}
                       </Button>
 
-                      <Button className="bg-red-500">Cancel</Button>
+                      <Button
+                        className="bg-red-500"
+                        onClick={() =>
+                          setOpenReadyToDeliverModal(!openReadyToDeliverModal)
+                        }
+                        disabled={loadingDeliverOrder ? true : false}
+                      >
+                        Cancel
+                      </Button>
                     </div>
                   </div>
                 </div>
