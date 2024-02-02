@@ -9,7 +9,11 @@ const CustomBurger = () => {
   let { user } = useContext(authContext);
   let axios = useAxios();
 
-  let { data: providerInfo = [], isLoading } = useQuery({
+  let {
+    data: providerInfo = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["providerInformation"],
     queryFn: async () => {
       let res = await axios
@@ -27,7 +31,7 @@ const CustomBurger = () => {
     <div>
       {providerInfo.length === 0 ? (
         <div>
-          <BeCustomBurgerProvider />
+          <BeCustomBurgerProvider refetch={refetch} />
         </div>
       ) : (
         <>

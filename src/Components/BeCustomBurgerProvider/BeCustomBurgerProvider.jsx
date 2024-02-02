@@ -1,6 +1,101 @@
-import { Button } from "@material-tailwind/react";
+/* eslint-disable react/prop-types */
+import {
+  Button,
+  Checkbox,
+  Dialog,
+  Input,
+  List,
+  ListItem,
+  ListItemPrefix,
+  Typography,
+} from "@material-tailwind/react";
+import { useContext, useState } from "react";
+import { authContext } from "../../Contexts/AuthContext";
+import { ImSpinner9 } from "react-icons/im";
+import useAxios from "../../Hooks/useAxios";
 
-const BeCustomBurgerProvider = () => {
+const BeCustomBurgerProvider = ({ refetch }) => {
+  let { user } = useContext(authContext);
+  let axios = useAxios();
+
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [prices, setPrices] = useState({});
+
+  const handleCheckboxChange = (option) => {
+    const isSelected = selectedOptions.includes(option);
+
+    if (isSelected) {
+      const updatedOptions = selectedOptions.filter(
+        (selectedOption) => selectedOption !== option
+      );
+      const updatedPrices = { ...prices };
+      delete updatedPrices[option];
+
+      setSelectedOptions(updatedOptions);
+      setPrices(updatedPrices);
+    } else {
+      const price = prompt(`Enter the price for ${option}:`);
+
+      if (price) {
+        const updatedOptions = [...selectedOptions, option];
+        const updatedPrices = { ...prices, [option]: price };
+
+        setSelectedOptions(updatedOptions);
+        setPrices(updatedPrices);
+      }
+    }
+  };
+
+  const handleOpen = () => {
+    setOpen(!open);
+  };
+
+  const handleSubmit = () => {
+    setLoading(true);
+
+    // Create an array of ingredients based on the selectedOptions and prices
+    const ingredients = selectedOptions.map((option) => {
+      const id = {
+        Tomato: "1",
+        Meat: "2",
+        Lettuse: "3",
+        Cheese: "4",
+      }[option];
+
+      const image = {
+        Tomato: "https://i.ibb.co/YXK7yd0/tomato.jpg",
+        Meat: "https://i.ibb.co/3SbhqGz/meat.jpg",
+        Lettuse: "https://i.ibb.co/y0zFvnT/lettuce.jpg",
+        Cheese: "https://i.ibb.co/yPGfcVQ/cheese.jpg",
+      }[option];
+
+      return {
+        id,
+        name: option,
+        price: parseInt(prices[option]),
+        image,
+      };
+    });
+
+    // Prepare the infoToSubmit object
+    const infoToSubmit = {
+      provider: user.displayName,
+      provider_thumb: user.photoURL,
+      ing: ingredients,
+    };
+
+    console.log(infoToSubmit);
+
+    axios.post("/become-provider", infoToSubmit).then(() => {
+      setLoading(false);
+      setOpen(false);
+      refetch();
+    });
+  };
+
   return (
     <div>
       <div className="bg-gray-300 rounded-2xl p-4  shadow shadow-sky-800 flex flex-col justify-around items-stretch">
@@ -32,10 +127,99 @@ const BeCustomBurgerProvider = () => {
           ingredients and you are good to go.
         </span>
 
-        <Button className="capitalize mt-5 w-[50%] mx-auto bg-[#0866ff] text-lg">
+        <Button
+          onClick={handleOpen}
+          className="capitalize mt-5 w-[50%] mx-auto bg-[#0866ff] text-lg"
+        >
           Become a custom burger service provider
         </Button>
       </div>
+
+      <Dialog open={open} size="md" handler={handleOpen}>
+        <div className="p-5">
+          <Input
+            label="Name"
+            value={user?.displayName}
+            disabled
+            className="cursor-not-allowed font-bold"
+          />
+
+          <div className="flex flex-col gap-2 mt-5 justify-center items-center">
+            <h1 className="text-gray-700">Thumbnail</h1>
+            <img
+              src={user.photoURL}
+              className="w-20 h-20 rounded-full object-cover border-2 border-blue-400"
+            />
+          </div>
+
+          <div className="flex flex-col justify-center items-center mt-5">
+            <span className="text-gray-700">
+              Select ingredients you want to provide and set price?
+            </span>
+
+            <List>
+              {["Tomato", "Meat", "Lettuse", "Cheese"].map((option) => (
+                <ListItem key={option} className="p-0">
+                  <label
+                    htmlFor={option}
+                    className="flex w-full cursor-pointer items-center px-3 py-2"
+                  >
+                    <ListItemPrefix className="mr-3">
+                      <Checkbox
+                        id={option}
+                        ripple={false}
+                        checked={selectedOptions.includes(option)}
+                        onChange={() => handleCheckboxChange(option)}
+                        containerProps={{
+                          className: "p-0",
+                        }}
+                      />
+                    </ListItemPrefix>
+                    <Typography color="blue-gray" className="font-medium">
+                      {option}
+                    </Typography>
+                  </label>
+                  {selectedOptions.includes(option) && (
+                    <input
+                      disabled
+                      className="bg-transparent"
+                      value={`৳ ${prices[option] || ""}`}
+                      onChange={(e) =>
+                        setPrices({ ...prices, [option]: e.target.value })
+                      }
+                    />
+                  )}
+                </ListItem>
+              ))}
+            </List>
+          </div>
+
+          <div className="flex justify-center items-center gap-3 mt-4">
+            <Button
+              className="bg-green-600"
+              onClick={handleSubmit}
+              disabled={loading ? true : false}
+            >
+              {loading ? (
+                <div className="flex items-center justify-center gap-5 ">
+                  <ImSpinner9 className="animate-spin text-[20px]" />
+                  Proceeding
+                </div>
+              ) : (
+                "Proceed"
+              )}
+            </Button>
+
+            <Button
+              disabled={loading ? true : false}
+              className="bg-red-600"
+              onClick={() => setOpen(!open)}
+            >
+              Cancel
+            </Button>
+          </div>
+        </div>
+      </Dialog>
     </div>
   );
 };
