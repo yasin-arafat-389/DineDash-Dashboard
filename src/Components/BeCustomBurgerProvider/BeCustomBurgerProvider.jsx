@@ -3,7 +3,6 @@ import {
   Button,
   Checkbox,
   Dialog,
-  Input,
   List,
   ListItem,
   ListItemPrefix,
@@ -38,6 +37,17 @@ const BeCustomBurgerProvider = ({ refetch }) => {
       setPrices(updatedPrices);
     } else {
       const price = prompt(`Enter the price for ${option}:`);
+
+      if (/^\d+$/.test(price)) {
+        const updatedOptions = [...selectedOptions, option];
+        const updatedPrices = { ...prices, [option]: parseInt(price) };
+
+        setSelectedOptions(updatedOptions);
+        setPrices(updatedPrices);
+      } else {
+        alert("Please enter a valid number for the price.");
+        return;
+      }
 
       if (price) {
         const updatedOptions = [...selectedOptions, option];
@@ -137,23 +147,8 @@ const BeCustomBurgerProvider = ({ refetch }) => {
 
       <Dialog open={open} size="md" handler={handleOpen}>
         <div className="p-5">
-          <Input
-            label="Name"
-            value={user?.displayName}
-            disabled
-            className="cursor-not-allowed font-bold"
-          />
-
-          <div className="flex flex-col gap-2 mt-5 justify-center items-center">
-            <h1 className="text-gray-700">Thumbnail</h1>
-            <img
-              src={user.photoURL}
-              className="w-20 h-20 rounded-full object-cover border-2 border-blue-400"
-            />
-          </div>
-
           <div className="flex flex-col justify-center items-center mt-5">
-            <span className="text-gray-700">
+            <span className="text-gray-700 text-xl mb-3">
               Select ingredients you want to provide and set price?
             </span>
 
@@ -198,7 +193,7 @@ const BeCustomBurgerProvider = ({ refetch }) => {
             <Button
               className="bg-green-600"
               onClick={handleSubmit}
-              disabled={loading ? true : false}
+              disabled={loading || selectedOptions.length === 0 ? true : false}
             >
               {loading ? (
                 <div className="flex items-center justify-center gap-5 ">
