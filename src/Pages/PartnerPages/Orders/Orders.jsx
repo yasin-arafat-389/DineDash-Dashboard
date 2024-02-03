@@ -106,7 +106,7 @@ const Orders = () => {
       ) : (
         <>
           <div>
-            <section className="antialiased text-gray-600 mt-5">
+            <section className="antialiased text-gray-600 mt-5 mb-20">
               <div className="flex flex-col h-full ">
                 <div className="w-full bg-gray-200 shadow-lg rounded-sm border border-gray-200">
                   <div className="p-3">
@@ -138,7 +138,7 @@ const Orders = () => {
                         </thead>
                         <tbody className="text-sm divide-y divide-gray-100">
                           {orders.map((customerData) =>
-                            customerData.cartFood.map((item, index) => (
+                            customerData.cartFood?.map((item, index) => (
                               <tr key={index}>
                                 <td className="p-2 whitespace-nowrap">
                                   <div className="flex items-center justify-center">
@@ -152,6 +152,7 @@ const Orders = () => {
                                     ৳ {item.totalPrice}
                                   </div>
                                 </td>
+
                                 <td className="p-2 whitespace-nowrap">
                                   <div className="text-center font-medium text-green-500">
                                     {/* Conditional Chip */}
@@ -192,6 +193,7 @@ const Orders = () => {
                                     </div>
                                   </div>
                                 </td>
+
                                 <td className="p-2 whitespace-nowrap">
                                   <div className="text-center font-bold text-lg text-gray-800">
                                     {item.status === "cancelled" && (
