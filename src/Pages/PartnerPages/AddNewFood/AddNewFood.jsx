@@ -103,7 +103,7 @@ const AddNewFood = () => {
                 label="Food Name"
                 required
                 name="name"
-                value={formData.foodName}
+                value={formData.name}
                 onChange={handleInputChange}
               />
               <Input
