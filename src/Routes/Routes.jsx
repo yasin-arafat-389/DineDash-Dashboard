@@ -4,17 +4,17 @@ import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import Login from "../Pages/Login/Login";
-import AdminOverview from "../Pages/AdminPages/AdminOverview/AdminOverview";
 import PartnerRequests from "../Pages/AdminPages/PartnerRequests/PartnerRequests";
 import AdminRoute from "./AdminRoute";
 import RestaurantHandlersRoute from "./RestaurantHandlersRoute";
 import RiderRegister from "../Pages/RiderRegister/RiderRegister";
 import RiderRequests from "../Pages/AdminPages/RiderRequests/RiderRequests";
-import PartnerOverview from "../Pages/PartnerPages/PartnerOverview/PartnerOverview";
 import Orders from "../Pages/PartnerPages/Orders/Orders";
 import CustomBurger from "../Pages/PartnerPages/CustomBurger/CustomBurger";
 import AddNewFood from "../Pages/PartnerPages/AddNewFood/AddNewFood";
 import MyFoods from "../Pages/PartnerPages/MyFoods/MyFoods";
+import PrivateRoute from "./PrivateRoute";
+import Overview from "../Components/Overview/Overview";
 
 const router = createBrowserRouter([
   {
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/unauthorized-route",
-        element: <div>This is un</div>,
+        element: <div>This is unauthorized route</div>,
       },
     ],
   },
@@ -47,11 +47,11 @@ const router = createBrowserRouter([
     children: [
       // Admin routes
       {
-        path: "/admin/dashboard/overview",
+        path: "/dashboard/overview",
         element: (
-          <AdminRoute>
-            <AdminOverview />
-          </AdminRoute>
+          <PrivateRoute>
+            <Overview />
+          </PrivateRoute>
         ),
       },
       {
@@ -73,11 +73,11 @@ const router = createBrowserRouter([
 
       // Restaurant handlers routes
       {
-        path: "/restaurant/dashboard/overview",
+        path: "/dashboard/overview",
         element: (
-          <RestaurantHandlersRoute>
-            <PartnerOverview />
-          </RestaurantHandlersRoute>
+          <PrivateRoute>
+            <Overview />
+          </PrivateRoute>
         ),
       },
       {
@@ -110,6 +110,16 @@ const router = createBrowserRouter([
           <RestaurantHandlersRoute>
             <MyFoods />
           </RestaurantHandlersRoute>
+        ),
+      },
+
+      // Rider routes
+      {
+        path: "/dashboard/overview",
+        element: (
+          <PrivateRoute>
+            <Overview />
+          </PrivateRoute>
         ),
       },
     ],

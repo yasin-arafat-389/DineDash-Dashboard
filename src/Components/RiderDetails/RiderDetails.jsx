@@ -16,8 +16,6 @@ const RiderDetails = () => {
     return <Loader />;
   }
 
-  console.log(riders);
-
   return (
     <div>
       <div>

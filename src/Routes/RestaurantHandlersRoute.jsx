@@ -21,7 +21,7 @@ const RestaurantHandlersRoute = ({ children }) => {
     return children;
   }
 
-  return <Navigate state={location.pathname} to="/admin/dashboard/overview" />;
+  return <Navigate state={location.pathname} to="/dashboard/overview" />;
 };
 
 export default RestaurantHandlersRoute;

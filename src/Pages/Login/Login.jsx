@@ -7,13 +7,11 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { authContext } from "../../Contexts/AuthContext";
 import toast from "react-hot-toast";
 import { ImSpinner9 } from "react-icons/im";
-import useRole from "../../Hooks/useRole";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
   let { login, user } = useContext(authContext);
   let navigate = useNavigate();
-  let [role] = useRole();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -34,14 +32,7 @@ const Login = () => {
 
     login(formData.email, formData.password)
       .then(() => {
-        navigate(
-          role === "admin"
-            ? "/admin/dashboard/overview"
-            : "/restaurant/dashboard/overview",
-          {
-            replace: true,
-          }
-        );
+        navigate("/dashboard/overview");
       })
       .catch((error) => {
         setLoading(false);
@@ -62,7 +53,7 @@ const Login = () => {
   };
 
   if (user) {
-    return <Navigate to="/dashboard/overview" />;
+    return <Navigate to={`/dashboard/overview`} />;
   }
 
   return (

@@ -1,15 +1,15 @@
 import { IoRestaurantOutline } from "react-icons/io5";
 import { MdDeliveryDining } from "react-icons/md";
 import { MdOutlineShoppingCartCheckout } from "react-icons/md";
-import Loader from "../../../Utilities/Loader/Loader";
-import useTotalRestaurant from "../../../Hooks/useTotalRestaurant";
-import useTotalRider from "../../../Hooks/useTotalRider";
-import useTotalOrdersPlaced from "../../../Hooks/useTotalOrdersPlaced";
-import PartnerDetails from "../../../Components/PartnerDetails/PartnerDetails";
-import RiderDetails from "../../../Components/RiderDetails/RiderDetails";
-import useRole from "../../../Hooks/useRole";
+import useRole from "../../Hooks/useRole";
+import useTotalRestaurant from "../../Hooks/useTotalRestaurant";
+import useTotalRider from "../../Hooks/useTotalRider";
+import useTotalOrdersPlaced from "../../Hooks/useTotalOrdersPlaced";
+import Loader from "../../Utilities/Loader/Loader";
+import PartnerDetails from "../PartnerDetails/PartnerDetails";
+import RiderDetails from "../RiderDetails/RiderDetails";
 
-const AdminOverview = () => {
+const Overview = () => {
   let [role] = useRole();
 
   let [totalRestaurant, totalRestaurantLoading] = useTotalRestaurant();
@@ -85,4 +85,4 @@ const AdminOverview = () => {
   );
 };
 
-export default AdminOverview;
+export default Overview;

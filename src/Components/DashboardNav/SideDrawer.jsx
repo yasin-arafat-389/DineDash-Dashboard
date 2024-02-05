@@ -50,18 +50,16 @@ const SideDrawer = () => {
               </div>
             </div>
             <List>
-              {/* Admin routes */}
-              {role === "admin" && (
-                <NavLink to="/admin/dashboard/overview" onClick={closeDrawer}>
-                  <div className="flex p-3 font-bold">
-                    <ListItemPrefix>
-                      <MdDashboard fontSize={"20"} />
-                    </ListItemPrefix>
-                    Overview
-                  </div>
-                </NavLink>
-              )}
+              <NavLink to="/dashboard/overview" onClick={closeDrawer}>
+                <div className="flex p-3 font-bold">
+                  <ListItemPrefix>
+                    <MdDashboard fontSize={"20"} />
+                  </ListItemPrefix>
+                  Overview
+                </div>
+              </NavLink>
 
+              {/* Admin routes */}
               {role === "admin" && (
                 <NavLink
                   to="/admin/dashboard/partner-requests"
@@ -91,20 +89,6 @@ const SideDrawer = () => {
               )}
 
               {/* Restaurant handlers routes */}
-              {role === "restaurant-handler" && (
-                <NavLink
-                  to="/restaurant/dashboard/overview"
-                  onClick={closeDrawer}
-                >
-                  <div className="flex p-3 font-bold">
-                    <ListItemPrefix>
-                      <MdDashboard fontSize={"20"} />
-                    </ListItemPrefix>
-                    Overview
-                  </div>
-                </NavLink>
-              )}
-
               {role === "restaurant-handler" && (
                 <NavLink
                   to="/restaurant/dashboard/orders"

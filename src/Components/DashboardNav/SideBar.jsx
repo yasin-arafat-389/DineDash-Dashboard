@@ -36,18 +36,16 @@ const SideBar = () => {
             <h1 className="text-lg font-bold">{user?.displayName}</h1>
           </div>
           <List>
-            {/* Admin routes */}
-            {role === "admin" && (
-              <NavLink to="/admin/dashboard/overview">
-                <div className="flex p-3 font-bold">
-                  <ListItemPrefix>
-                    <MdDashboard fontSize={"20"} />
-                  </ListItemPrefix>
-                  Overview
-                </div>
-              </NavLink>
-            )}
+            <NavLink to="/dashboard/overview">
+              <div className="flex p-3 font-bold">
+                <ListItemPrefix>
+                  <MdDashboard fontSize={"20"} />
+                </ListItemPrefix>
+                Overview
+              </div>
+            </NavLink>
 
+            {/* Admin routes */}
             {role === "admin" && (
               <NavLink to="/admin/dashboard/partner-requests">
                 <div className="flex p-3 font-bold">
@@ -71,17 +69,6 @@ const SideBar = () => {
             )}
 
             {/* Restaurant handlers routes */}
-            {role === "restaurant-handler" && (
-              <NavLink to="/restaurant/dashboard/overview">
-                <div className="flex p-3 font-bold">
-                  <ListItemPrefix>
-                    <MdDashboard fontSize={"20"} />
-                  </ListItemPrefix>
-                  Overview
-                </div>
-              </NavLink>
-            )}
-
             {role === "restaurant-handler" && (
               <NavLink to="/restaurant/dashboard/orders">
                 <div className="flex p-3 font-bold">

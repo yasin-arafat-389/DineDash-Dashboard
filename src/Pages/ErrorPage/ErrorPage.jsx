@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
-import useRole from "../../Hooks/useRole";
 import { useContext } from "react";
 import { authContext } from "../../Contexts/AuthContext";
 
 const ErrorPage = () => {
-  let [role] = useRole();
   let { user } = useContext(authContext);
   return (
     <div>
@@ -29,11 +27,7 @@ const ErrorPage = () => {
             ) : (
               <Link
                 className="relative block px-8 py-3 bg-[#1A2238] border border-current"
-                to={
-                  role === "admin"
-                    ? "/admin/dashboard/overview"
-                    : "/restaurant/dashboard/overview"
-                }
+                to={"/"}
               >
                 Go Home
               </Link>
