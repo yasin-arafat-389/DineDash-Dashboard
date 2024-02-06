@@ -1,6 +1,7 @@
 import { IoRestaurantOutline } from "react-icons/io5";
 import { MdDeliveryDining } from "react-icons/md";
 import { MdOutlineShoppingCartCheckout } from "react-icons/md";
+import { TbCoinTakaFilled } from "react-icons/tb";
 import useRole from "../../Hooks/useRole";
 import useTotalRestaurant from "../../Hooks/useTotalRestaurant";
 import useTotalRider from "../../Hooks/useTotalRider";
@@ -26,33 +27,66 @@ const Overview = () => {
         {/* Card 1 */}
         <div className="flex items-center bg-gray-200 border rounded-sm overflow-hidden shadow">
           <div className="p-4 bg-green-400">
-            <IoRestaurantOutline className="text-white text-[60px]" />
+            {role === "admin" && (
+              <IoRestaurantOutline className="text-white text-[60px]" />
+            )}
+            {role === "restaurant-handler" && (
+              <MdOutlineShoppingCartCheckout className="text-white text-[60px]" />
+            )}
           </div>
           <div className="px-4 text-gray-700">
-            <h3 className="text-sm tracking-wider">Total Restaurants</h3>
-            <p className="text-3xl">{totalRestaurant}</p>
+            <h3 className="text-sm tracking-wider">
+              {role === "admin" && "Total Restaurants"}
+              {role === "restaurant-handler" && "Total Orders Placed"}
+            </h3>
+            <p className="text-3xl">
+              {role === "admin" && totalRestaurant}{" "}
+              {role === "restaurant-handler" && 10}
+            </p>
           </div>
         </div>
 
         {/* Card 2 */}
         <div className="flex items-center bg-gray-200 border rounded-sm overflow-hidden shadow">
           <div className="p-4 bg-green-400">
-            <MdDeliveryDining className="text-white text-[60px]" />
+            {role === "admin" && (
+              <MdDeliveryDining className="text-white text-[60px]" />
+            )}
+            {role === "restaurant-handler" && (
+              <MdDeliveryDining className="text-white text-[60px]" />
+            )}
           </div>
           <div className="px-4 text-gray-700">
-            <h3 className="text-sm tracking-wider">Total Riders</h3>
-            <p className="text-3xl">{totalRiders}</p>
+            <h3 className="text-sm tracking-wider">
+              {role === "admin" && "Total Riders"}
+              {role === "restaurant-handler" && "Total Orders Delivered"}
+            </h3>
+            <p className="text-3xl">
+              {role === "admin" && totalRiders}{" "}
+              {role === "restaurant-handler" && 10}
+            </p>
           </div>
         </div>
 
         {/* Card 3 */}
         <div className="flex items-center bg-gray-200 border rounded-sm overflow-hidden shadow">
           <div className="p-4 bg-green-400">
-            <MdOutlineShoppingCartCheckout className="text-white text-[60px]" />
+            {role === "admin" && (
+              <MdOutlineShoppingCartCheckout className="text-white text-[60px]" />
+            )}
+            {role === "restaurant-handler" && (
+              <TbCoinTakaFilled className="text-white text-[60px]" />
+            )}
           </div>
           <div className="px-4 text-gray-700">
-            <h3 className="text-sm tracking-wider">Total Orders Placed</h3>
-            <p className="text-3xl">{totalOrders}</p>
+            <h3 className="text-sm tracking-wider">
+              {role === "admin" && "Total Orders Placed"}
+              {role === "restaurant-handler" && "Total Earned"}
+            </h3>
+            <p className="text-3xl">
+              {role === "admin" && totalOrders}{" "}
+              {role === "restaurant-handler" && "10"}
+            </p>
           </div>
         </div>
       </div>
