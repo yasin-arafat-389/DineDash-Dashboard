@@ -6,9 +6,9 @@ import useRole from "../../Hooks/useRole";
 import useTotalRestaurant from "../../Hooks/useTotalRestaurant";
 import useTotalRider from "../../Hooks/useTotalRider";
 import useTotalOrdersPlaced from "../../Hooks/useTotalOrdersPlaced";
-import Loader from "../../Utilities/Loader/Loader";
 import PartnerDetails from "../PartnerDetails/PartnerDetails";
 import RiderDetails from "../RiderDetails/RiderDetails";
+import OverviewSkeletonLoader from "../../Utilities/OverviewSkeletonLoader/OverviewSkeletonLoader";
 
 const Overview = () => {
   let [role] = useRole();
@@ -17,79 +17,81 @@ const Overview = () => {
   let [totalRiders, totalRidersLoading] = useTotalRider();
   let [totalOrders, totalordersLoading] = useTotalOrdersPlaced();
 
-  if (totalRestaurantLoading || totalRidersLoading || totalordersLoading) {
-    return <Loader />;
-  }
-
   return (
     <div className="mb-20">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 ">
-        {/* Card 1 */}
-        <div className="flex items-center bg-gray-200 border rounded-sm overflow-hidden shadow">
-          <div className="p-4 bg-green-400">
-            {role === "admin" && (
-              <IoRestaurantOutline className="text-white text-[60px]" />
-            )}
-            {role === "restaurant-handler" && (
-              <MdOutlineShoppingCartCheckout className="text-white text-[60px]" />
-            )}
-          </div>
-          <div className="px-4 text-gray-700">
-            <h3 className="text-sm tracking-wider">
-              {role === "admin" && "Total Restaurants"}
-              {role === "restaurant-handler" && "Total Orders Placed"}
-            </h3>
-            <p className="text-3xl">
-              {role === "admin" && totalRestaurant}{" "}
-              {role === "restaurant-handler" && 10}
-            </p>
-          </div>
+      {totalRestaurantLoading || totalRidersLoading || totalordersLoading ? (
+        <div>
+          <OverviewSkeletonLoader />
         </div>
+      ) : (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 ">
+          {/* Card 1 */}
+          <div className="flex items-center bg-gray-200 border rounded-sm overflow-hidden shadow">
+            <div className="p-4 bg-green-400">
+              {role === "admin" && (
+                <IoRestaurantOutline className="text-white text-[60px]" />
+              )}
+              {role === "restaurant-handler" && (
+                <MdOutlineShoppingCartCheckout className="text-white text-[60px]" />
+              )}
+            </div>
+            <div className="px-4 text-gray-700">
+              <h3 className="text-sm tracking-wider">
+                {role === "admin" && "Total Restaurants"}
+                {role === "restaurant-handler" && "Total Orders Placed"}
+              </h3>
+              <p className="text-3xl">
+                {role === "admin" && totalRestaurant}{" "}
+                {role === "restaurant-handler" && 10}
+              </p>
+            </div>
+          </div>
 
-        {/* Card 2 */}
-        <div className="flex items-center bg-gray-200 border rounded-sm overflow-hidden shadow">
-          <div className="p-4 bg-green-400">
-            {role === "admin" && (
-              <MdDeliveryDining className="text-white text-[60px]" />
-            )}
-            {role === "restaurant-handler" && (
-              <MdDeliveryDining className="text-white text-[60px]" />
-            )}
+          {/* Card 2 */}
+          <div className="flex items-center bg-gray-200 border rounded-sm overflow-hidden shadow">
+            <div className="p-4 bg-green-400">
+              {role === "admin" && (
+                <MdDeliveryDining className="text-white text-[60px]" />
+              )}
+              {role === "restaurant-handler" && (
+                <MdDeliveryDining className="text-white text-[60px]" />
+              )}
+            </div>
+            <div className="px-4 text-gray-700">
+              <h3 className="text-sm tracking-wider">
+                {role === "admin" && "Total Riders"}
+                {role === "restaurant-handler" && "Total Orders Delivered"}
+              </h3>
+              <p className="text-3xl">
+                {role === "admin" && totalRiders}{" "}
+                {role === "restaurant-handler" && 10}
+              </p>
+            </div>
           </div>
-          <div className="px-4 text-gray-700">
-            <h3 className="text-sm tracking-wider">
-              {role === "admin" && "Total Riders"}
-              {role === "restaurant-handler" && "Total Orders Delivered"}
-            </h3>
-            <p className="text-3xl">
-              {role === "admin" && totalRiders}{" "}
-              {role === "restaurant-handler" && 10}
-            </p>
-          </div>
-        </div>
 
-        {/* Card 3 */}
-        <div className="flex items-center bg-gray-200 border rounded-sm overflow-hidden shadow">
-          <div className="p-4 bg-green-400">
-            {role === "admin" && (
-              <MdOutlineShoppingCartCheckout className="text-white text-[60px]" />
-            )}
-            {role === "restaurant-handler" && (
-              <TbCoinTakaFilled className="text-white text-[60px]" />
-            )}
-          </div>
-          <div className="px-4 text-gray-700">
-            <h3 className="text-sm tracking-wider">
-              {role === "admin" && "Total Orders Placed"}
-              {role === "restaurant-handler" && "Total Earned"}
-            </h3>
-            <p className="text-3xl">
-              {role === "admin" && totalOrders}{" "}
-              {role === "restaurant-handler" && "10"}
-            </p>
+          {/* Card 3 */}
+          <div className="flex items-center bg-gray-200 border rounded-sm overflow-hidden shadow">
+            <div className="p-4 bg-green-400">
+              {role === "admin" && (
+                <MdOutlineShoppingCartCheckout className="text-white text-[60px]" />
+              )}
+              {role === "restaurant-handler" && (
+                <TbCoinTakaFilled className="text-white text-[60px]" />
+              )}
+            </div>
+            <div className="px-4 text-gray-700">
+              <h3 className="text-sm tracking-wider">
+                {role === "admin" && "Total Orders Placed"}
+                {role === "restaurant-handler" && "Total Earned"}
+              </h3>
+              <p className="text-3xl">
+                {role === "admin" && totalOrders}{" "}
+                {role === "restaurant-handler" && "10"}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Contents to show if the role is admin */}
       {role === "admin" && (
