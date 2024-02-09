@@ -1,8 +1,18 @@
-# React + Vite
+# About Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Project name:- DineDash Dashboard
+- Type:- Dashboard for DineDash (Food delivery web application)
+- [Project live URL](https://dinedash-dashboard.web.app/)
 
-Currently, two official plugins are available:
+# Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Admin can manage vendor/partner request, rider requests.
+- Vendor can see an overview of sales.
+- Vendor can manage orders.
+- Vendor can add, edit, delete food they offer.
+- Rider can see overview of their deliveries and so on.
+
+# Technologies used
+
+- Client side (React, react router, state management, custom hooks, context api etc.)
+- Server side side (Node js, Express js, MongoDB, Nodemailer, etc.)
