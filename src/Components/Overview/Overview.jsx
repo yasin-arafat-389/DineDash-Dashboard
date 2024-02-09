@@ -11,6 +11,7 @@ import RiderDetails from "../RiderDetails/RiderDetails";
 import OverviewSkeletonLoader from "../../Utilities/OverviewSkeletonLoader/OverviewSkeletonLoader";
 import useTotalOrders from "../../Hooks/useTotalOrders";
 import useTotalOrdersDelivered from "../../Hooks/useTotalOrdersDelivered";
+import useTotalEarned from "../../Hooks/useTotalEarned";
 
 const Overview = () => {
   let [role] = useRole();
@@ -21,6 +22,7 @@ const Overview = () => {
   let [totalOrdersPlaced, totalordersPlacedLoading] = useTotalOrders();
   let [totalOrdersDelivered, totalordersDeliveredLoading] =
     useTotalOrdersDelivered();
+  let [totalEarned, totalEarnedLoading] = useTotalEarned();
 
   return (
     <div className="mb-20">
@@ -28,7 +30,8 @@ const Overview = () => {
       totalRidersLoading ||
       totalordersLoading ||
       totalordersPlacedLoading ||
-      totalordersDeliveredLoading ? (
+      totalordersDeliveredLoading ||
+      totalEarnedLoading ? (
         <div>
           <OverviewSkeletonLoader />
         </div>
@@ -95,7 +98,7 @@ const Overview = () => {
               </h3>
               <p className="text-3xl">
                 {role === "admin" && totalOrders}{" "}
-                {role === "restaurant-handler" && "10"}
+                {role === "restaurant-handler" && totalEarned}
               </p>
             </div>
           </div>
