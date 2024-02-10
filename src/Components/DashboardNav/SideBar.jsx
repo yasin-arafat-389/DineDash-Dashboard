@@ -8,6 +8,7 @@ import { MdDashboard, MdDeliveryDining } from "react-icons/md";
 import useRole from "../../Hooks/useRole";
 import { IoIosNotifications, IoMdAddCircle } from "react-icons/io";
 import { PiHamburgerFill } from "react-icons/pi";
+import { BsFillArrowDownLeftCircleFill } from "react-icons/bs";
 
 const SideBar = () => {
   let { logOut, user } = useContext(authContext);
@@ -109,6 +110,18 @@ const SideBar = () => {
                     <IoFastFood fontSize={"20"} />
                   </ListItemPrefix>
                   My Foods
+                </div>
+              </NavLink>
+            )}
+
+            {/* Rider routes */}
+            {role === "rider" && (
+              <NavLink to="/rider/dashboard/incoming-deliveries">
+                <div className="flex p-3 font-bold">
+                  <ListItemPrefix>
+                    <BsFillArrowDownLeftCircleFill fontSize={"20"} />
+                  </ListItemPrefix>
+                  Incoming Deliveries
                 </div>
               </NavLink>
             )}

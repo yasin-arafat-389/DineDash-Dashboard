@@ -15,6 +15,8 @@ import AddNewFood from "../Pages/PartnerPages/AddNewFood/AddNewFood";
 import MyFoods from "../Pages/PartnerPages/MyFoods/MyFoods";
 import PrivateRoute from "./PrivateRoute";
 import Overview from "../Components/Overview/Overview";
+import RiderRoute from "./RiderRoute";
+import IncomingDeliveries from "../Pages/RiderPages/IncomingDeliveries/IncomingDeliveries";
 
 const router = createBrowserRouter([
   {
@@ -120,6 +122,14 @@ const router = createBrowserRouter([
           <PrivateRoute>
             <Overview />
           </PrivateRoute>
+        ),
+      },
+      {
+        path: "/rider/dashboard/incoming-deliveries",
+        element: (
+          <RiderRoute>
+            <IncomingDeliveries />
+          </RiderRoute>
         ),
       },
     ],

@@ -12,6 +12,7 @@ import { PiHamburgerFill } from "react-icons/pi";
 import { IoMdAddCircle } from "react-icons/io";
 import useRole from "../../Hooks/useRole";
 import { IoFastFood } from "react-icons/io5";
+import { BsFillArrowDownLeftCircleFill } from "react-icons/bs";
 
 const SideDrawer = () => {
   const [open, setOpen] = React.useState(false);
@@ -141,6 +142,21 @@ const SideDrawer = () => {
                       <IoFastFood fontSize={"20"} />
                     </ListItemPrefix>
                     My Foods
+                  </div>
+                </NavLink>
+              )}
+
+              {/* Rider routes */}
+              {role === "rider" && (
+                <NavLink
+                  to="/rider/dashboard/incoming-deliveries"
+                  onClick={closeDrawer}
+                >
+                  <div className="flex p-3 font-bold">
+                    <ListItemPrefix>
+                      <BsFillArrowDownLeftCircleFill fontSize={"20"} />
+                    </ListItemPrefix>
+                    Incoming Deliveries
                   </div>
                 </NavLink>
               )}

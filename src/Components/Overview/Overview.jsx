@@ -2,6 +2,7 @@ import { IoRestaurantOutline } from "react-icons/io5";
 import { MdDeliveryDining } from "react-icons/md";
 import { MdOutlineShoppingCartCheckout } from "react-icons/md";
 import { TbCoinTakaFilled } from "react-icons/tb";
+import { ImLocation2 } from "react-icons/im";
 import useRole from "../../Hooks/useRole";
 import useTotalRestaurant from "../../Hooks/useTotalRestaurant";
 import useTotalRider from "../../Hooks/useTotalRider";
@@ -13,6 +14,7 @@ import useTotalOrders from "../../Hooks/useTotalOrders";
 import useTotalOrdersDelivered from "../../Hooks/useTotalOrdersDelivered";
 import useTotalEarned from "../../Hooks/useTotalEarned";
 import FoodsWeOffer from "../FoodsWeOffer/FoodsWeOffer";
+import useDeliveryArea from "../../Hooks/useDeliveryArea";
 
 const Overview = () => {
   let [role] = useRole();
@@ -24,6 +26,7 @@ const Overview = () => {
   let [totalOrdersDelivered, totalordersDeliveredLoading] =
     useTotalOrdersDelivered();
   let [totalEarned, totalEarnedLoading] = useTotalEarned();
+  let [riderInfo, riderInfoLoading] = useDeliveryArea();
 
   return (
     <div className="mb-20">
@@ -32,7 +35,8 @@ const Overview = () => {
       totalordersLoading ||
       totalordersPlacedLoading ||
       totalordersDeliveredLoading ||
-      totalEarnedLoading ? (
+      totalEarnedLoading ||
+      riderInfoLoading ? (
         <div>
           <OverviewSkeletonLoader />
         </div>
@@ -47,15 +51,20 @@ const Overview = () => {
               {role === "restaurant-handler" && (
                 <MdOutlineShoppingCartCheckout className="text-white text-[60px]" />
               )}
+              {role === "rider" && (
+                <ImLocation2 className="text-white text-[60px]" />
+              )}
             </div>
             <div className="px-4 text-gray-700">
               <h3 className="text-sm tracking-wider">
                 {role === "admin" && "Total Restaurants"}
                 {role === "restaurant-handler" && "Total Orders Placed"}
+                {role === "rider" && "Your Delivery Area"}
               </h3>
               <p className="text-3xl">
                 {role === "admin" && totalRestaurant}{" "}
                 {role === "restaurant-handler" && totalOrdersPlaced}
+                {role === "rider" && riderInfo.region}
               </p>
             </div>
           </div>
@@ -69,15 +78,20 @@ const Overview = () => {
               {role === "restaurant-handler" && (
                 <MdDeliveryDining className="text-white text-[60px]" />
               )}
+              {role === "rider" && (
+                <MdDeliveryDining className="text-white text-[60px]" />
+              )}
             </div>
             <div className="px-4 text-gray-700">
               <h3 className="text-sm tracking-wider">
                 {role === "admin" && "Total Riders"}
                 {role === "restaurant-handler" && "Total Orders Delivered"}
+                {role === "rider" && "Total Delivered"}
               </h3>
               <p className="text-3xl">
                 {role === "admin" && totalRiders}{" "}
                 {role === "restaurant-handler" && totalOrdersDelivered}
+                {role === "rider" && riderInfo.totalDelivered}
               </p>
             </div>
           </div>
@@ -91,15 +105,20 @@ const Overview = () => {
               {role === "restaurant-handler" && (
                 <TbCoinTakaFilled className="text-white text-[60px]" />
               )}
+              {role === "rider" && (
+                <TbCoinTakaFilled className="text-white text-[60px]" />
+              )}
             </div>
             <div className="px-4 text-gray-700">
               <h3 className="text-sm tracking-wider">
                 {role === "admin" && "Total Orders Placed"}
                 {role === "restaurant-handler" && "Total Earned"}
+                {role === "rider" && "Total Earned"}
               </h3>
               <p className="text-3xl">
                 {role === "admin" && totalOrders}{" "}
                 {role === "restaurant-handler" && totalEarned}
+                {role === "rider" && riderInfo.totalEarned}
               </p>
             </div>
           </div>
