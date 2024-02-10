@@ -14,12 +14,10 @@ const OverviewSkeletonLoader = () => {
             </div>
             <div className="px-4 text-gray-700">
               <h3 className="text-sm tracking-wider">
-                <div className="bg-gray-400 h-full text-gray-400">
-                  Total Restaurant
-                </div>
+                <div className="h-5 w-40 rounded-lg bg-gradient-to-r from-gray-500 to-gray-400 animate-pulse text-gray-400"></div>
               </h3>
               <p className="text-3xl">
-                <div className="bg-gray-400 text-gray-400 mt-2">6</div>
+                <div className="h-10 w-40 mt-2 rounded-lg bg-gradient-to-r from-gray-500 to-gray-400 animate-pulse text-gray-400"></div>
               </p>
             </div>
           </div>

@@ -12,6 +12,7 @@ import OverviewSkeletonLoader from "../../Utilities/OverviewSkeletonLoader/Overv
 import useTotalOrders from "../../Hooks/useTotalOrders";
 import useTotalOrdersDelivered from "../../Hooks/useTotalOrdersDelivered";
 import useTotalEarned from "../../Hooks/useTotalEarned";
+import FoodsWeOffer from "../FoodsWeOffer/FoodsWeOffer";
 
 const Overview = () => {
   let [role] = useRole();
@@ -127,6 +128,13 @@ const Overview = () => {
           </h2>
 
           <RiderDetails />
+        </div>
+      )}
+
+      {/* Contents to show if the role is vendor/restaurant handler */}
+      {role === "restaurant-handler" && (
+        <div>
+          <FoodsWeOffer />
         </div>
       )}
     </div>
