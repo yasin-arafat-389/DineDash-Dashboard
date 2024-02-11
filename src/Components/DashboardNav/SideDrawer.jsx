@@ -13,6 +13,7 @@ import { IoMdAddCircle } from "react-icons/io";
 import useRole from "../../Hooks/useRole";
 import { IoFastFood } from "react-icons/io5";
 import { BsFillArrowDownLeftCircleFill } from "react-icons/bs";
+import { FaCheckCircle } from "react-icons/fa";
 
 const SideDrawer = () => {
   const [open, setOpen] = React.useState(false);
@@ -157,6 +158,20 @@ const SideDrawer = () => {
                       <BsFillArrowDownLeftCircleFill fontSize={"20"} />
                     </ListItemPrefix>
                     Incoming Deliveries
+                  </div>
+                </NavLink>
+              )}
+
+              {role === "rider" && (
+                <NavLink
+                  to="/rider/dashboard/accepted-deliveries"
+                  onClick={closeDrawer}
+                >
+                  <div className="flex p-3 font-bold">
+                    <ListItemPrefix>
+                      <FaCheckCircle fontSize={"20"} />
+                    </ListItemPrefix>
+                    Accepted Deliveries
                   </div>
                 </NavLink>
               )}

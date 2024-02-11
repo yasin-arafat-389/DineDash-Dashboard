@@ -97,8 +97,6 @@ const Orders = () => {
     return <Loader />;
   }
 
-  console.log(orders);
-
   return (
     <div>
       {orders.length === 0 ? (

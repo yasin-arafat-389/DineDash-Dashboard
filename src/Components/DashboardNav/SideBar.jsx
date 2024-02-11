@@ -9,6 +9,7 @@ import useRole from "../../Hooks/useRole";
 import { IoIosNotifications, IoMdAddCircle } from "react-icons/io";
 import { PiHamburgerFill } from "react-icons/pi";
 import { BsFillArrowDownLeftCircleFill } from "react-icons/bs";
+import { FaCheckCircle } from "react-icons/fa";
 
 const SideBar = () => {
   let { logOut, user } = useContext(authContext);
@@ -122,6 +123,17 @@ const SideBar = () => {
                     <BsFillArrowDownLeftCircleFill fontSize={"20"} />
                   </ListItemPrefix>
                   Incoming Deliveries
+                </div>
+              </NavLink>
+            )}
+
+            {role === "rider" && (
+              <NavLink to="/rider/dashboard/accepted-deliveries">
+                <div className="flex p-3 font-bold">
+                  <ListItemPrefix>
+                    <FaCheckCircle fontSize={"20"} />
+                  </ListItemPrefix>
+                  Accepted Deliveries
                 </div>
               </NavLink>
             )}

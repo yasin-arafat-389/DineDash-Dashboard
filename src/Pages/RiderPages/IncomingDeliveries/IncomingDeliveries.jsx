@@ -71,8 +71,6 @@ const IncomingDeliveries = () => {
     return <Loader />;
   }
 
-  console.log(incomingDeliveries);
-
   return (
     <div>
       <h2 className={`flex flex-row flex-nowrap items-center mt-3 `}>
@@ -149,7 +147,7 @@ const IncomingDeliveries = () => {
 
                 <div className="mt-5">
                   <h2 className="text-lg text-gray-800">
-                    Pickup{" "}
+                    Pick up{" "}
                     <span className="text-blue-700">
                       {deliveryDetails.quantity || "one"}
                     </span>{" "}
@@ -194,7 +192,7 @@ const IncomingDeliveries = () => {
                         <span className="text-blue-700">
                           {deliveryDetails.paymentMethod === "SSLCOMMERZ"
                             ? "Paid Online"
-                            : `Please collect ${deliveryDetails.totalPrice}.00 taka from customer`}
+                            : `Please collect ${deliveryDetails.totalPrice} taka from customer`}
                         </span>
                       </h2>
                     </div>

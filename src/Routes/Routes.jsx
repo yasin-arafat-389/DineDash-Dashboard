@@ -17,6 +17,7 @@ import PrivateRoute from "./PrivateRoute";
 import Overview from "../Components/Overview/Overview";
 import RiderRoute from "./RiderRoute";
 import IncomingDeliveries from "../Pages/RiderPages/IncomingDeliveries/IncomingDeliveries";
+import AcceptedDeliveries from "../Pages/RiderPages/AcceptedDeliveries/AcceptedDeliveries";
 
 const router = createBrowserRouter([
   {
@@ -129,6 +130,14 @@ const router = createBrowserRouter([
         element: (
           <RiderRoute>
             <IncomingDeliveries />
+          </RiderRoute>
+        ),
+      },
+      {
+        path: "/rider/dashboard/accepted-deliveries",
+        element: (
+          <RiderRoute>
+            <AcceptedDeliveries />
           </RiderRoute>
         ),
       },

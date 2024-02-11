@@ -97,8 +97,6 @@ const BeCustomBurgerProvider = ({ refetch }) => {
       ing: ingredients,
     };
 
-    console.log(infoToSubmit);
-
     axios.post("/become-provider", infoToSubmit).then(() => {
       setLoading(false);
       setOpen(false);

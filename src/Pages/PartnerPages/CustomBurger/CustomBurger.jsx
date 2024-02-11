@@ -156,8 +156,6 @@ const CustomBurger = () => {
       });
   };
 
-  console.log(orders);
-
   if (isLoading || customOrdersLoading) {
     return <Loader />;
   }
