@@ -8,13 +8,21 @@ import { IoMdCloseCircle } from "react-icons/io";
 import { FaHashtag } from "react-icons/fa6";
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
-import { useState } from "react";
+import { ImSpinner9 } from "react-icons/im";
+import { useContext, useState } from "react";
+import toast from "react-hot-toast";
+import { authContext } from "../../../Contexts/AuthContext";
 
 const IncomingDeliveries = () => {
+  let { user } = useContext(authContext);
   let axios = useAxios();
   let [riderDetails, riderDetailsLoading] = useDeliveryArea();
 
-  let { data: incomingDeliveries = [], isLoading } = useQuery({
+  let {
+    data: incomingDeliveries = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["incomingDeliveries"],
     queryFn: async () => {
       if (riderDetailsLoading) return;
@@ -28,6 +36,7 @@ const IncomingDeliveries = () => {
 
   const [open, setOpen] = useState(false);
   const [deliveryDetails, setDeliveryDetails] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleOpen = (details) => {
     setOpen(!open);
@@ -35,7 +44,27 @@ const IncomingDeliveries = () => {
   };
 
   const handleAcceptDelivery = () => {
-    console.log("hi");
+    setLoading(true);
+    axios
+      .post(
+        `/accept/delivery?orderId=${deliveryDetails.orderId}&type=${deliveryDetails.orderType}&riderName=${user.displayName}`
+      )
+      .then(() => {
+        setLoading(false);
+        setOpen(!open);
+        refetch();
+        toast.success(`Delivery Accepted!!`, {
+          style: {
+            border: "2px solid green",
+            padding: "8px",
+            color: "#713200",
+          },
+          iconTheme: {
+            primary: "green",
+            secondary: "#FFFAEE",
+          },
+        });
+      });
   };
 
   if (isLoading) {
@@ -174,13 +203,22 @@ const IncomingDeliveries = () => {
                       <Button
                         className="bg-green-600"
                         onClick={handleAcceptDelivery}
+                        disabled={isLoading ? true : false}
                       >
-                        Accept Delivery
+                        {loading ? (
+                          <div className="flex items-center justify-center gap-5 ">
+                            <ImSpinner9 className="animate-spin text-[20px]" />
+                            Accepting
+                          </div>
+                        ) : (
+                          "Accept Order"
+                        )}
                       </Button>
 
                       <Button
                         className="bg-red-600"
                         onClick={() => setOpen(!open)}
+                        disabled={loading ? true : false}
                       >
                         Cancel
                       </Button>
