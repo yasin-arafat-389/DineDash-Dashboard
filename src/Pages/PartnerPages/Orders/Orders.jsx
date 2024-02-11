@@ -97,6 +97,8 @@ const Orders = () => {
     return <Loader />;
   }
 
+  console.log(orders);
+
   return (
     <div>
       {orders.length === 0 ? (
@@ -348,9 +350,20 @@ const Orders = () => {
                       </div>
                       <h2 className="text-xl font-bold py-4 text-gray-800">
                         Are you sure{" "}
-                        <span className="text-blue-500">{foodInfo.name}</span>{" "}
+                        <span className="text-blue-500">
+                          {foodInfo.quantity} {foodInfo.name}
+                        </span>{" "}
                         is ready to be delivered?
                       </h2>
+
+                      <div className="mb-5">
+                        <h2 className="text-lg text-gray-800">
+                          Order ID:{" "}
+                          <span className="italic text-indigo-600">
+                            {foodInfo.orderId}
+                          </span>
+                        </h2>
+                      </div>
                     </div>
                     <div className="flex gap-4 justify-center items-center">
                       <Button

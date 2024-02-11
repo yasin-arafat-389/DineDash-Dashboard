@@ -1,7 +1,197 @@
+import { useQuery } from "@tanstack/react-query";
+import useAxios from "../../../Hooks/useAxios";
+import Loader from "../../../Utilities/Loader/Loader";
+import NoDataFound from "../../../Utilities/NoDataFound/NoDataFound";
+import useDeliveryArea from "../../../Hooks/useDeliveryArea";
+import { Button, Dialog } from "@material-tailwind/react";
+import { IoMdCloseCircle } from "react-icons/io";
+import { FaHashtag } from "react-icons/fa6";
+import { FaPhoneAlt } from "react-icons/fa";
+import { FaBangladeshiTakaSign } from "react-icons/fa6";
+import { useState } from "react";
+
 const IncomingDeliveries = () => {
+  let axios = useAxios();
+  let [riderDetails, riderDetailsLoading] = useDeliveryArea();
+
+  let { data: incomingDeliveries = [], isLoading } = useQuery({
+    queryKey: ["incomingDeliveries"],
+    queryFn: async () => {
+      if (riderDetailsLoading) return;
+      let res = await axios
+        .get(`/deliveries/incoming?region=${riderDetails.region}`)
+        .then();
+      return res.data;
+    },
+    enabled: !riderDetailsLoading,
+  });
+
+  const [open, setOpen] = useState(false);
+  const [deliveryDetails, setDeliveryDetails] = useState(false);
+
+  const handleOpen = (details) => {
+    setOpen(!open);
+    setDeliveryDetails(details);
+  };
+
+  const handleAcceptDelivery = () => {
+    console.log("hi");
+  };
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  console.log(incomingDeliveries);
+
   return (
     <div>
-      <div>This is incoming delivery page</div>
+      <h2 className={`flex flex-row flex-nowrap items-center mt-3 `}>
+        <span className="flex-grow block border-t border-green-600"></span>
+        <span className="flex-none block mx-4 px-4 py-2.5 text-xl rounded leading-none font-medium bg-green-400 text-white">
+          Incoming Deliveries
+        </span>
+        <span className="flex-grow block border-t border-green-600"></span>
+      </h2>
+
+      <div>
+        {incomingDeliveries.length === 0 ? (
+          <div className="mt-10">
+            <NoDataFound text={"No incoming deliveries for now!!"} />
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
+              {incomingDeliveries.map((item, index) => (
+                <div className="relative" key={index}>
+                  <span className="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-indigo-500 rounded-lg"></span>
+                  <div className="relative p-6 bg-white border-2 border-indigo-500 rounded-lg">
+                    {/* Pickup Location */}
+                    <div className="flex items-center">
+                      <img
+                        src="https://i.ibb.co/jzwgkrV/location.png"
+                        className="w-[40px]"
+                      />
+                      <div className="my-2 ml-3 text-lg text-gray-800">
+                        Pickup Point:{" "}
+                        <span className="italic text-indigo-600">
+                          {item.restaurant}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Drop off Location */}
+                    <div className="flex items-center mt-3">
+                      <img
+                        src="https://i.ibb.co/vV0P1QV/parcel.png"
+                        className="w-[40px]"
+                      />
+                      <div className="my-2 ml-3 text-lg text-gray-800 line-clamp-1">
+                        Drop Off:{" "}
+                        <span className="italic text-indigo-600">
+                          {item.address}
+                        </span>
+                      </div>
+                    </div>
+
+                    <Button
+                      onClick={() => handleOpen(item)}
+                      className="capitalize mt-5 w-full bg-indigo-500 text-[15px]"
+                    >
+                      See Details
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Delivery Details Modal */}
+            <Dialog open={open} handler={handleOpen}>
+              <div className="py-5 px-7">
+                <div className="flex justify-between items-center">
+                  <span className="font-bold text-gray-700 text-lg">
+                    Delivery Details
+                  </span>
+
+                  <button onClick={() => setOpen(!open)}>
+                    <IoMdCloseCircle size={"20"} color="red" />
+                  </button>
+                </div>
+
+                <div className="mt-5">
+                  <h2 className="text-lg text-gray-800">
+                    Pickup{" "}
+                    <span className="text-blue-700">
+                      {deliveryDetails.quantity || "one"}
+                    </span>{" "}
+                    <span className="text-blue-700">
+                      {deliveryDetails.name || "Custom Burger"}
+                    </span>{" "}
+                    from{" "}
+                    <span className="text-blue-700">
+                      {deliveryDetails.restaurant}
+                    </span>{" "}
+                    and drop it off to{" "}
+                    <span className="text-blue-700">
+                      {deliveryDetails.address}
+                    </span>
+                  </h2>
+
+                  <div className="mt-5">
+                    <div className="flex items-center gap-2 text-lg text-gray-700">
+                      <FaHashtag />
+                      <h2>
+                        Order ID:{" "}
+                        <span className="text-blue-700">
+                          {deliveryDetails.orderId}
+                        </span>
+                      </h2>
+                    </div>
+
+                    <div className="flex items-center gap-2 text-lg text-gray-700 mt-3">
+                      <FaPhoneAlt />
+                      <h2>
+                        Customer phone number:{" "}
+                        <span className="text-blue-700">
+                          {deliveryDetails.phone}
+                        </span>
+                      </h2>
+                    </div>
+
+                    <div className="flex items-center gap-2 text-lg text-gray-700 mt-3">
+                      <FaBangladeshiTakaSign size={"20"} />
+                      <h2>
+                        Payment:{" "}
+                        <span className="text-blue-700">
+                          {deliveryDetails.paymentMethod === "SSLCOMMERZ"
+                            ? "Paid Online"
+                            : `Please collect ${deliveryDetails.totalPrice}.00 taka from customer`}
+                        </span>
+                      </h2>
+                    </div>
+
+                    <div className="flex gap-3 justify-center mt-6">
+                      <Button
+                        className="bg-green-600"
+                        onClick={handleAcceptDelivery}
+                      >
+                        Accept Delivery
+                      </Button>
+
+                      <Button
+                        className="bg-red-600"
+                        onClick={() => setOpen(!open)}
+                      >
+                        Cancel
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Dialog>
+          </>
+        )}
+      </div>
     </div>
   );
 };

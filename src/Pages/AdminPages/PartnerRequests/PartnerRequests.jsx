@@ -169,7 +169,7 @@ const PartnerRequests = () => {
                     <div className="flex justify-center items-center gap-4 pb-4">
                       <Button
                         className="bg-green-500"
-                        disabled={loading ? true : false}
+                        disabled={loading || rejectloading ? true : false}
                         onClick={handleAccept}
                       >
                         {loading ? (
@@ -184,7 +184,7 @@ const PartnerRequests = () => {
 
                       <Button
                         className="bg-red-500"
-                        disabled={rejectloading ? true : false}
+                        disabled={rejectloading || loading ? true : false}
                         onClick={handleReject}
                       >
                         {rejectloading ? (
