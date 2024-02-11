@@ -42,22 +42,26 @@ const AcceptedDeliveries = () => {
   const handleDeliverToCustomer = () => {
     setLoading(true);
 
-    axios.post(`/`).then(() => {
-      setLoading(false);
-      setOpen(!open);
-      refetch();
-      toast.success(`Order successfully delivered!!`, {
-        style: {
-          border: "2px solid green",
-          padding: "8px",
-          color: "#713200",
-        },
-        iconTheme: {
-          primary: "green",
-          secondary: "#FFFAEE",
-        },
+    axios
+      .post(
+        `/deliver/food?orderId=${deliveryDetails.orderId}&type=${deliveryDetails.orderType}&riderName=${user.displayName}`
+      )
+      .then(() => {
+        setLoading(false);
+        setOpen(!open);
+        refetch();
+        toast.success(`Order successfully delivered!!`, {
+          style: {
+            border: "2px solid green",
+            padding: "8px",
+            color: "#713200",
+          },
+          iconTheme: {
+            primary: "green",
+            secondary: "#FFFAEE",
+          },
+        });
       });
-    });
   };
 
   if (isLoading) {
