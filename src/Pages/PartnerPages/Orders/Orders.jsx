@@ -12,6 +12,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
 import { ImSpinner9 } from "react-icons/im";
 import { IoWarningOutline } from "react-icons/io5";
+import toast from "react-hot-toast";
 
 const Orders = () => {
   let { user } = useContext(authContext);
@@ -57,6 +58,17 @@ const Orders = () => {
         setLoading(false);
         setOpen(!open);
         refetch();
+        toast.success(`Order accepted!!`, {
+          style: {
+            border: "2px solid green",
+            padding: "8px",
+            color: "#713200",
+          },
+          iconTheme: {
+            primary: "green",
+            secondary: "#FFFAEE",
+          },
+        });
       });
   };
 
@@ -71,6 +83,17 @@ const Orders = () => {
         setLoadingReject(false);
         setOpen(!open);
         refetch();
+        toast.success(`Order Rejected!!`, {
+          style: {
+            border: "2px solid green",
+            padding: "8px",
+            color: "#713200",
+          },
+          iconTheme: {
+            primary: "green",
+            secondary: "#FFFAEE",
+          },
+        });
       });
   };
 
@@ -90,6 +113,17 @@ const Orders = () => {
         setLoadingDeliverOrder(false);
         setOpenReadyToDeliverModal(!openReadyToDeliverModal);
         refetch();
+        toast.success(`Order is out for delivery!!`, {
+          style: {
+            border: "2px solid green",
+            padding: "8px",
+            color: "#713200",
+          },
+          iconTheme: {
+            primary: "green",
+            secondary: "#FFFAEE",
+          },
+        });
       });
   };
 
@@ -299,7 +333,7 @@ const Orders = () => {
                     <Button
                       className="capitalize bg-green-500"
                       onClick={handleAcceptOrder}
-                      disabled={loading ? true : false}
+                      disabled={loading || loadingReject ? true : false}
                     >
                       {loading ? (
                         <div className="flex items-center justify-center gap-4">
@@ -314,7 +348,7 @@ const Orders = () => {
                     <Button
                       className="capitalize bg-red-500"
                       onClick={handleRejectOrder}
-                      disabled={loadingReject ? true : false}
+                      disabled={loadingReject || loading ? true : false}
                     >
                       {loadingReject ? (
                         <div className="flex items-center justify-center gap-4">

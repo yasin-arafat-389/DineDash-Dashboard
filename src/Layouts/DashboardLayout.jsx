@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { authContext } from "../Contexts/AuthContext";
 import SideDrawer from "../Components/DashboardNav/SideDrawer";
 import SideBar from "../Components/DashboardNav/SideBar";
-import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
@@ -10,7 +9,6 @@ const DashboardLayout = () => {
 
   return (
     <div className=" pt-4">
-      <Toaster position="top-right" reverseOrder={false} />
       <div className=" w-[90%] mx-auto  ">
         {/* Top Banner */}
         <div

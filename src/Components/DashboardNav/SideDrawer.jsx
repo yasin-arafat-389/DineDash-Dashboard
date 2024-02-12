@@ -14,6 +14,7 @@ import useRole from "../../Hooks/useRole";
 import { IoFastFood } from "react-icons/io5";
 import { BsFillArrowDownLeftCircleFill } from "react-icons/bs";
 import { FaCheckCircle } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 const SideDrawer = () => {
   const [open, setOpen] = React.useState(false);
@@ -25,6 +26,17 @@ const SideDrawer = () => {
   let handleLogOut = () => {
     logOut()
       .then(() => {
+        toast.success(`Successfully Logged Out!!`, {
+          style: {
+            border: "2px solid green",
+            padding: "8px",
+            color: "#713200",
+          },
+          iconTheme: {
+            primary: "green",
+            secondary: "#FFFAEE",
+          },
+        });
         navigate("/");
       })
       .catch((error) => {

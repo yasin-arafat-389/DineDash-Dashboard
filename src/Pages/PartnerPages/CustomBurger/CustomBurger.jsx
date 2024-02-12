@@ -125,6 +125,17 @@ const CustomBurger = () => {
         setLoadingReject(false);
         setOpen(!open);
         customOrdersRefetch();
+        toast.success(`Order Rejected!!`, {
+          style: {
+            border: "2px solid green",
+            padding: "8px",
+            color: "#713200",
+          },
+          iconTheme: {
+            primary: "green",
+            secondary: "#FFFAEE",
+          },
+        });
       });
   };
 
@@ -139,6 +150,17 @@ const CustomBurger = () => {
         setLoadingAccept(false);
         setOpen(!open);
         customOrdersRefetch();
+        toast.success(`Order Accepted!!`, {
+          style: {
+            border: "2px solid green",
+            padding: "8px",
+            color: "#713200",
+          },
+          iconTheme: {
+            primary: "green",
+            secondary: "#FFFAEE",
+          },
+        });
       });
   };
 
@@ -153,6 +175,17 @@ const CustomBurger = () => {
         setLoadingDeliverOrder(false);
         setOpenReadyToDeliverModal(!openReadyToDeliverModal);
         customOrdersRefetch();
+        toast.success(`Order is out for delivery!!`, {
+          style: {
+            border: "2px solid green",
+            padding: "8px",
+            color: "#713200",
+          },
+          iconTheme: {
+            primary: "green",
+            secondary: "#FFFAEE",
+          },
+        });
       });
   };
 

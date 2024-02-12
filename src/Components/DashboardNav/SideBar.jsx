@@ -10,6 +10,7 @@ import { IoIosNotifications, IoMdAddCircle } from "react-icons/io";
 import { PiHamburgerFill } from "react-icons/pi";
 import { BsFillArrowDownLeftCircleFill } from "react-icons/bs";
 import { FaCheckCircle } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 const SideBar = () => {
   let { logOut, user } = useContext(authContext);
@@ -19,6 +20,17 @@ const SideBar = () => {
   let handleLogOut = () => {
     logOut()
       .then(() => {
+        toast.success(`Successfully Logged Out!!`, {
+          style: {
+            border: "2px solid green",
+            padding: "8px",
+            color: "#713200",
+          },
+          iconTheme: {
+            primary: "green",
+            secondary: "#FFFAEE",
+          },
+        });
         navigate("/login");
       })
       .catch((error) => {

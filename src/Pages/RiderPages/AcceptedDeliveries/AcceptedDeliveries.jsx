@@ -68,8 +68,6 @@ const AcceptedDeliveries = () => {
     return <Loader />;
   }
 
-  console.log(acceptedDeliveries);
-
   return (
     <div>
       <h2 className={`flex flex-row flex-nowrap items-center mt-3 `}>

@@ -15,6 +15,7 @@ import useTotalOrdersDelivered from "../../Hooks/useTotalOrdersDelivered";
 import useTotalEarned from "../../Hooks/useTotalEarned";
 import FoodsWeOffer from "../FoodsWeOffer/FoodsWeOffer";
 import useDeliveryArea from "../../Hooks/useDeliveryArea";
+import RiderActivity from "../RiderActivity/RiderActivity";
 
 const Overview = () => {
   let [role] = useRole();
@@ -154,6 +155,13 @@ const Overview = () => {
       {role === "restaurant-handler" && (
         <div>
           <FoodsWeOffer />
+        </div>
+      )}
+
+      {/* Contents to show if the role is rider */}
+      {role === "rider" && (
+        <div>
+          <RiderActivity />
         </div>
       )}
     </div>

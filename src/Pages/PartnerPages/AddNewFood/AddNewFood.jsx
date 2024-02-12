@@ -176,7 +176,7 @@ const AddNewFood = () => {
             </div>
 
             <div>
-              <Button type="submit" fullWidth>
+              <Button type="submit" className="bg-blue-600" fullWidth>
                 {loading ? (
                   <div className="flex items-center justify-center gap-5 ">
                     <ImSpinner9 className="animate-spin text-[20px]" />

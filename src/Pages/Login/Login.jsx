@@ -33,6 +33,17 @@ const Login = () => {
     login(formData.email, formData.password)
       .then(() => {
         navigate("/dashboard/overview");
+        toast.success(`Successfully Logged In!!`, {
+          style: {
+            border: "2px solid green",
+            padding: "8px",
+            color: "#713200",
+          },
+          iconTheme: {
+            primary: "green",
+            secondary: "#FFFAEE",
+          },
+        });
       })
       .catch((error) => {
         setLoading(false);
