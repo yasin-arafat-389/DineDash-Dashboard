@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import Loader from "../../Utilities/Loader/Loader";
 import { Button, Dialog } from "@material-tailwind/react";
 import { useState } from "react";
 import useAxios from "../../Hooks/useAxios";
+import PartnerDetailsSkeletonLoader from "./PartnerDetailsSkeletonLoader";
 
 const PartnerDetails = () => {
   let axios = useAxios();
@@ -25,7 +25,7 @@ const PartnerDetails = () => {
   };
 
   if (isRestaurantsLoading) {
-    return <Loader />;
+    return <PartnerDetailsSkeletonLoader />;
   }
 
   return (

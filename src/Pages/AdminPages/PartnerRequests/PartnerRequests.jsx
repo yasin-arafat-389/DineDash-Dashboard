@@ -1,10 +1,10 @@
 import { Button, Dialog } from "@material-tailwind/react";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../../Hooks/useAxios";
-import Loader from "../../../Utilities/Loader/Loader";
 import NoDataFound from "../../../Utilities/NoDataFound/NoDataFound";
 import { useState } from "react";
 import { ImSpinner9 } from "react-icons/im";
+import Loader from "../../../Utilities/Loader/Loader";
 
 const PartnerRequests = () => {
   let axios = useAxios();

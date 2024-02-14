@@ -32,14 +32,6 @@ const RiderActivity = () => {
 
   return (
     <div>
-      <h2 className="flex flex-row flex-nowrap items-center mt-12">
-        <span className="flex-grow block border-t border-green-600"></span>
-        <span className="flex-none block mx-4 px-4 py-2.5 text-xl rounded leading-none font-medium bg-green-400 text-white">
-          Your Activity
-        </span>
-        <span className="flex-grow block border-t border-green-600"></span>
-      </h2>
-
       <div>
         {data.length === 0 ? (
           <div>

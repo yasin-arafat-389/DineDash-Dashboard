@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import Loader from "../../Utilities/Loader/Loader";
 import useAxios from "../../Hooks/useAxios";
+import RiderDetailsSkeletonLoader from "./RiderDetailsSkeletonLoader";
 const RiderDetails = () => {
   let axios = useAxios();
 
@@ -13,7 +13,7 @@ const RiderDetails = () => {
   });
 
   if (isRiderLoading) {
-    return <Loader />;
+    return <RiderDetailsSkeletonLoader />;
   }
 
   return (

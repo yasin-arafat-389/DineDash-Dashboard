@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import Loader from "../../Utilities/Loader/Loader";
 import { useContext } from "react";
 import { authContext } from "../../Contexts/AuthContext";
 import useAxios from "../../Hooks/useAxios";
 import { Button } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
+import FoodsWeOfferSkeletonLoader from "./FoodsWeOfferSkeletonLoader";
 
 const FoodsWeOffer = () => {
   let { user } = useContext(authContext);
@@ -25,7 +25,7 @@ const FoodsWeOffer = () => {
   if (myOfferedFoodsLoading) {
     return (
       <div className="mt-12">
-        <Loader />
+        <FoodsWeOfferSkeletonLoader />
       </div>
     );
   }
@@ -34,14 +34,6 @@ const FoodsWeOffer = () => {
     <div>
       {myOfferedFoods.length === 0 ? (
         <div>
-          <h2 className="flex flex-row flex-nowrap items-center mt-12">
-            <span className="flex-grow block border-t border-green-600"></span>
-            <span className="flex-none block mx-4 px-4 py-2.5 text-xl rounded leading-none font-medium bg-green-400 text-white">
-              Foods We Offer
-            </span>
-            <span className="flex-grow block border-t border-green-600"></span>
-          </h2>
-
           <div className="flex flex-col gap-7 mt-10">
             <div className="flex flex-col justify-center items-center">
               <img
@@ -64,14 +56,6 @@ const FoodsWeOffer = () => {
       ) : (
         <>
           <div>
-            <h2 className="flex flex-row flex-nowrap items-center mt-12">
-              <span className="flex-grow block border-t border-green-600"></span>
-              <span className="flex-none block mx-4 px-4 py-2.5 text-xl rounded leading-none font-medium bg-green-400 text-white">
-                Foods We Offer
-              </span>
-              <span className="flex-grow block border-t border-green-600"></span>
-            </h2>
-
             <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-6">
               {myOfferedFoods.map((item, index) => (
                 <div

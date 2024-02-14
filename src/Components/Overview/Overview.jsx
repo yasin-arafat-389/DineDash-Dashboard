@@ -154,6 +154,13 @@ const Overview = () => {
       {/* Contents to show if the role is vendor/restaurant handler */}
       {role === "restaurant-handler" && (
         <div>
+          <h2 className="flex flex-row flex-nowrap items-center mt-12">
+            <span className="flex-grow block border-t border-green-600"></span>
+            <span className="flex-none block mx-4 px-4 py-2.5 text-xl rounded leading-none font-medium bg-green-400 text-white">
+              Foods We Offer
+            </span>
+            <span className="flex-grow block border-t border-green-600"></span>
+          </h2>
           <FoodsWeOffer />
         </div>
       )}
@@ -161,6 +168,13 @@ const Overview = () => {
       {/* Contents to show if the role is rider */}
       {role === "rider" && (
         <div>
+          <h2 className="flex flex-row flex-nowrap items-center mt-12">
+            <span className="flex-grow block border-t border-green-600"></span>
+            <span className="flex-none block mx-4 px-4 py-2.5 text-xl rounded leading-none font-medium bg-green-400 text-white">
+              Your Activity
+            </span>
+            <span className="flex-grow block border-t border-green-600"></span>
+          </h2>
           <RiderActivity />
         </div>
       )}
