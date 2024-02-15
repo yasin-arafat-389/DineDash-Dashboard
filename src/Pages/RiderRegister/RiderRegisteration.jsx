@@ -1,22 +1,20 @@
-import { MdOutlineAlternateEmail } from "react-icons/md";
-import useAxios from "../../Hooks/useAxios";
 import { useContext, useState } from "react";
+import useAxios from "../../Hooks/useAxios";
 import { authContext } from "../../Contexts/AuthContext";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { imageUpload } from "../../Utilities/ImageUpload/ImageUpload";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { Button, Dialog } from "@material-tailwind/react";
 import { ImSpinner9 } from "react-icons/im";
+import { MdOutlineAlternateEmail, MdPendingActions } from "react-icons/md";
 import { CiWarning } from "react-icons/ci";
 import { IoWarningOutline } from "react-icons/io5";
 import { FaCheckCircle } from "react-icons/fa";
-import { MdPendingActions } from "react-icons/md";
-import { MdCancel } from "react-icons/md";
-import { Helmet } from "react-helmet";
 
-const Home = () => {
+const RiderRegisteration = () => {
   let axios = useAxios();
   let { createUser, update, logOut, user } = useContext(authContext);
   let navigate = useNavigate();
@@ -24,7 +22,9 @@ const Home = () => {
   let [loading, setLoading] = useState(false);
   let [nextStep, setNextStep] = useState(false);
 
-  let [restaurant, setRestaurant] = useState("");
+  let [riderName, setRiderName] = useState("");
+  let [riderPhone, setRiderPhone] = useState("");
+  let [riderRegion, setRiderRegion] = useState("");
 
   let [email, setEmail] = useState("");
   const handleEmailChange = (e) => {
@@ -44,11 +44,10 @@ const Home = () => {
 
   // States to manage displaying modals
   const [openModalForEmptyInput, setOpenModalForEmptyInput] = useState(false);
-  const [openModalToSendPartnerRequest, setopenModalToSendPartnerRequest] =
+  const [openModalToSendRiderRequest, setopenModalToSendRiderRequest] =
     useState(false);
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openUnderReview, setOpenUnderReview] = useState(false);
-  const [openRequestRejected, setOpenRequestRejected] = useState(false);
 
   let handleNextStep = async () => {
     setLoading(true);
@@ -59,10 +58,10 @@ const Home = () => {
       return;
     }
 
-    axios.get(`/partner-request?email=${email}`).then((res) => {
+    axios.get(`/rider-request-status?email=${email}`).then((res) => {
       if (!res.data) {
         setLoading(false);
-        setopenModalToSendPartnerRequest(!openModalToSendPartnerRequest);
+        setopenModalToSendRiderRequest(!openModalToSendRiderRequest);
         return;
       } else if (res.data.status === "pending") {
         setLoading(false);
@@ -70,7 +69,10 @@ const Home = () => {
         return;
       } else if (res.data.status === "rejected") {
         setLoading(false);
-        setOpenRequestRejected(!openRequestRejected);
+        Swal.fire({
+          icon: "warning",
+          text: "We are extremely sorry to inform you that your rider request has been rejected. ",
+        });
         return;
       } else if (res.data.resolved === true) {
         setLoading(false);
@@ -81,7 +83,9 @@ const Home = () => {
         setNextStep(true);
       }
 
-      setRestaurant(res.data.restaurantName);
+      setRiderName(res.data.name);
+      setRiderPhone(res.data.phone);
+      setRiderRegion(res.data.region);
     });
   };
 
@@ -101,7 +105,7 @@ const Home = () => {
     if (!selectedFile) {
       Swal.fire({
         icon: "warning",
-        text: "You must select your restaurant logo",
+        text: "You must select your profile picture",
       });
       setLoading(false);
       return;
@@ -115,16 +119,17 @@ const Home = () => {
     }
 
     axios
-      .post("/register-restaurant", {
+      .post("/register-rider", {
         email: email,
-        restaurantName: restaurant,
-        thumbnail: imgData?.data?.display_url,
+        name: riderName,
+        phone: riderPhone,
+        region: riderRegion,
       })
       .then(() => {});
 
     createUser(email, password)
       .then(() => {
-        update(restaurant, imgData?.data?.display_url)
+        update(riderName, imgData?.data?.display_url)
           .then(() => {})
           .catch((error) => {
             console.log(error);
@@ -174,7 +179,7 @@ const Home = () => {
   return (
     <div>
       <Helmet>
-        <title>Register Your Restaurant</title>
+        <title>Register As a Rider</title>
       </Helmet>
 
       <div className="flex w-full py-20 items-center justify-center bg-gray-100">
@@ -182,16 +187,16 @@ const Home = () => {
           <div
             className="m-2 w-full rounded-2xl bg-gray-400 bg-cover bg-center text-white sm:w-2/5"
             style={{
-              backgroundImage: `url('https://i.ibb.co/jbwvN8K/1589656374290.jpg')`,
+              backgroundImage: `url('https://i.ibb.co/Q69xFQm/delivery-man-with-face-mask-delivering-order-motorcycle-154993-160.jpg')`,
             }}
           ></div>
           <div className="w-full sm:w-3/5">
             <div className="p-8">
               <h1 className="text-2xl font-black text-slate-700">
-                Register your restaurant
+                Register as a rider
               </h1>
               <p className="mt-2 mb-5 text-base leading-tight text-gray-600">
-                Enter information about your restaurant carefully
+                Enter the following informations carefully
               </p>
 
               {/* Email */}
@@ -325,7 +330,7 @@ const Home = () => {
 
               <div className="mt-4 text-center">
                 <p className="text-sm text-gray-600">
-                  Already a partner?{" "}
+                  Already a rider?{" "}
                   <span className="text-blue-600 hover:underline">
                     <Link to="/login">Login to your dashboard</Link>
                   </span>
@@ -333,145 +338,121 @@ const Home = () => {
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Modal to show if the input is empty */}
-        <Dialog
-          size="xs"
-          open={openModalForEmptyInput}
-          handler={handleNextStep}
-          className="py-10"
-        >
-          <div className="flex flex-col items-center rounded-md text-gray-800">
-            <div className="bg-yellow-300 p-5 rounded-lg">
-              <CiWarning size={"50"} />
+          {/* Modal to show if the input is empty */}
+          <Dialog
+            size="xs"
+            open={openModalForEmptyInput}
+            handler={handleNextStep}
+            className="py-10"
+          >
+            <div className="flex flex-col items-center rounded-md text-gray-800">
+              <div className="bg-yellow-300 p-5 rounded-lg">
+                <CiWarning size={"50"} />
+              </div>
+              <p className="mt-4 text-center text-xl font-bold">
+                Please enter a valid gmail.
+              </p>
+              <div className="mt-8 flex flex-col justify-center space-y-3 sm:flex-row sm:space-x-3 sm:space-y-0">
+                <Button
+                  onClick={() =>
+                    setOpenModalForEmptyInput(!openModalForEmptyInput)
+                  }
+                  className=""
+                >
+                  Okay
+                </Button>
+              </div>
             </div>
-            <p className="mt-4 text-center text-xl font-bold">
-              Please enter a valid gmail.
-            </p>
-            <div className="mt-8 flex flex-col justify-center space-y-3 sm:flex-row sm:space-x-3 sm:space-y-0">
+          </Dialog>
+
+          {/* Modal to show if the user had not sent partner request yet */}
+          <Dialog
+            open={openModalToSendRiderRequest}
+            handler={handleNextStep}
+            className="p-10"
+          >
+            <div className="flex justify-center">
+              <IoWarningOutline size={"60"} className="text-yellow-800" />
+            </div>
+
+            <h1 className="text-center mt-5 text-xl font-bold text-gray-600">
+              You have not sent a request to be a rider yet.
+            </h1>
+
+            <div className="flex gap-3 justify-center mt-5">
+              <Link
+                target="_blank"
+                to={"https://dine-dash-client.web.app/rider-request"}
+                onClick={() =>
+                  setopenModalToSendRiderRequest(!openModalToSendRiderRequest)
+                }
+              >
+                <Button className="bg-green-600 capitalize">
+                  Send Rider Request
+                </Button>
+              </Link>
+
               <Button
                 onClick={() =>
-                  setOpenModalForEmptyInput(!openModalForEmptyInput)
+                  setopenModalToSendRiderRequest(!openModalToSendRiderRequest)
                 }
-                className=""
+                className="bg-red-600 capitalize"
               >
-                Okay
+                Cancel
               </Button>
             </div>
-          </div>
-        </Dialog>
+          </Dialog>
 
-        {/* Modal to show if the user had not sent partner request yet */}
-        <Dialog
-          open={openModalToSendPartnerRequest}
-          handler={handleNextStep}
-          className="p-10"
-        >
-          <div className="flex justify-center">
-            <IoWarningOutline size={"60"} className="text-yellow-800" />
-          </div>
+          {/* Modal to show if the user is already a rider */}
+          <Dialog open={openSuccess} handler={handleNextStep} className="p-10">
+            <div className="flex justify-center">
+              <FaCheckCircle size={"60"} className="text-green-600" />
+            </div>
 
-          <h1 className="text-center mt-5 text-xl font-bold text-gray-600">
-            You have not sent a request to be a partner yet.
-          </h1>
+            <h1 className="text-center mt-5 text-xl font-bold text-gray-600">
+              You are already a rider. Login to your dashboard to manage
+              deliveries.
+            </h1>
 
-          <div className="flex gap-3 justify-center mt-5">
-            <Link
-              target="_blank"
-              to={"https://dine-dash-client.web.app/partner-request"}
-              onClick={() =>
-                setopenModalToSendPartnerRequest(!openModalToSendPartnerRequest)
-              }
-            >
-              <Button className="bg-green-600 capitalize">
-                Send Partner Request
+            <div className="flex justify-center mt-5">
+              <Button
+                onClick={() => setOpenSuccess(!openSuccess)}
+                className="bg-blue-600 capitalize"
+              >
+                Ok
               </Button>
-            </Link>
+            </div>
+          </Dialog>
 
-            <Button
-              onClick={() =>
-                setopenModalToSendPartnerRequest(!openModalToSendPartnerRequest)
-              }
-              className="bg-red-600 capitalize"
-            >
-              Cancel
-            </Button>
-          </div>
-        </Dialog>
+          {/* Modal to show if the rider request is under review */}
+          <Dialog
+            open={openUnderReview}
+            handler={handleNextStep}
+            className="p-10"
+          >
+            <div className="flex justify-center">
+              <MdPendingActions size={"60"} className="text-blue-600" />
+            </div>
 
-        {/* Modal to show if the user is already a partner */}
-        <Dialog open={openSuccess} handler={handleNextStep} className="p-10">
-          <div className="flex justify-center">
-            <FaCheckCircle size={"60"} className="text-green-600" />
-          </div>
+            <h1 className="text-center mt-5 text-xl font-bold text-gray-600">
+              Your rider request is still under review. You will get an email
+              once admin approves your request.
+            </h1>
 
-          <h1 className="text-center mt-5 text-xl font-bold text-gray-600">
-            You are already a partner. Login to your dashboard to manage orders.
-          </h1>
-
-          <div className="flex justify-center mt-5">
-            <Button
-              onClick={() => setOpenSuccess(!openSuccess)}
-              className="bg-blue-600 capitalize"
-            >
-              Ok
-            </Button>
-          </div>
-        </Dialog>
-
-        {/* Modal to show if the partner request is under review */}
-        <Dialog
-          open={openUnderReview}
-          handler={handleNextStep}
-          className="p-10"
-        >
-          <div className="flex justify-center">
-            <MdPendingActions size={"60"} className="text-blue-600" />
-          </div>
-
-          <h1 className="text-center mt-5 text-xl font-bold text-gray-600">
-            Your partner request is still under review. You will get an email
-            once admin approves your request.
-          </h1>
-
-          <div className="flex justify-center mt-5">
-            <Button
-              onClick={() => setOpenUnderReview(!openUnderReview)}
-              className="bg-blue-600 capitalize"
-            >
-              Ok
-            </Button>
-          </div>
-        </Dialog>
-
-        {/* Modal to show if the partner request is rejected */}
-        <Dialog
-          open={openRequestRejected}
-          handler={handleNextStep}
-          className="p-10"
-        >
-          <div className="flex justify-center">
-            <MdCancel size={"60"} className="text-red-600" />
-          </div>
-
-          <h1 className="text-center mt-5 text-xl font-bold text-gray-600">
-            We are extremely sorry to inform you that your partner request has
-            been rejected.
-          </h1>
-
-          <div className="flex justify-center mt-5">
-            <Button
-              onClick={() => setOpenRequestRejected(!openRequestRejected)}
-              className="bg-blue-600 capitalize"
-            >
-              Ok
-            </Button>
-          </div>
-        </Dialog>
+            <div className="flex justify-center mt-5">
+              <Button
+                onClick={() => setOpenUnderReview(!openUnderReview)}
+                className="bg-blue-600 capitalize"
+              >
+                Ok
+              </Button>
+            </div>
+          </Dialog>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Home;
+export default RiderRegisteration;

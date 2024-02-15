@@ -3,11 +3,9 @@ import MainLayout from "../Layouts/MainLayout";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
 import DashboardLayout from "../Layouts/DashboardLayout";
-import Login from "../Pages/Login/Login";
 import PartnerRequests from "../Pages/AdminPages/PartnerRequests/PartnerRequests";
 import AdminRoute from "./AdminRoute";
 import RestaurantHandlersRoute from "./RestaurantHandlersRoute";
-import RiderRegister from "../Pages/RiderRegister/RiderRegister";
 import RiderRequests from "../Pages/AdminPages/RiderRequests/RiderRequests";
 import Orders from "../Pages/PartnerPages/Orders/Orders";
 import CustomBurger from "../Pages/PartnerPages/CustomBurger/CustomBurger";
@@ -18,6 +16,8 @@ import Overview from "../Components/Overview/Overview";
 import RiderRoute from "./RiderRoute";
 import IncomingDeliveries from "../Pages/RiderPages/IncomingDeliveries/IncomingDeliveries";
 import AcceptedDeliveries from "../Pages/RiderPages/AcceptedDeliveries/AcceptedDeliveries";
+import RiderRegisteration from "../Pages/RiderRegister/RiderRegisteration";
+import Login from "../Pages/Login/Login";
 
 const router = createBrowserRouter([
   {
@@ -27,12 +27,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-
         element: <Home />,
       },
       {
         path: "/rider-register",
-        element: <RiderRegister />,
+        element: <RiderRegisteration />,
       },
       {
         path: "/login",

@@ -1,12 +1,12 @@
 import { Button } from "@material-tailwind/react";
+import { ImSpinner9 } from "react-icons/im";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
-import { Helmet } from "react-helmet";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
-import { Link, Navigate, useNavigate } from "react-router-dom";
 import { authContext } from "../../Contexts/AuthContext";
 import toast from "react-hot-toast";
-import { ImSpinner9 } from "react-icons/im";
+import { Helmet } from "react-helmet";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -73,37 +73,35 @@ const Login = () => {
         <title>Login to your dashboard</title>
       </Helmet>
 
-      <form onSubmit={handleLogin}>
-        {" "}
-        <div className="min-h-screen flex flex-col pt-20 items-center bg-gray-100">
-          <div
-            className="
-          flex flex-col
-          bg-white
-          shadow-md
-          px-4
-          sm:px-6
-          md:px-8
-          lg:px-10
-          py-8
-          rounded-3xl
-          w-50
-          max-w-md
-        "
-          >
-            <div className="font-medium self-center text-xl sm:text-3xl text-gray-800">
-              Login to your dashboard
-            </div>
-            <div className="mt-4 self-center text-xl sm:text-sm text-gray-800">
-              and manage orders, payments, utilities etc.
+      <div className="bg-gray-100">
+        <div className="py-20">
+          <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl">
+            <div className="hidden lg:flex lg:w-1/2">
+              <img
+                src="https://i.ibb.co/TH4yV64/two-factor-authentication-concept-illustration-114360-5280.jpg"
+                className="object-cover"
+              />
             </div>
 
-            <div className="mt-10">
-              {/* Email */}
-              <div className="flex flex-col mb-5">
-                <div className="relative">
-                  <div
-                    className="
+            <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
+              <div className="flex justify-center mx-auto">
+                <img
+                  className="w-[30%]"
+                  src="https://i.ibb.co/kBDBhVs/dinedash.png"
+                  alt=""
+                />
+              </div>
+
+              <p className="mt-3 text-xl text-center text-gray-600 dark:text-gray-200">
+                Login to your Dashboard
+              </p>
+
+              <form className="mt-5" onSubmit={handleLogin}>
+                {/* Email */}
+                <div className="flex flex-col mb-5">
+                  <div className="relative">
+                    <div
+                      className="
                     inline-flex
                     items-center
                     justify-center
@@ -114,17 +112,17 @@ const Login = () => {
                     w-10
                     text-gray-400
                   "
-                  >
-                    <MdOutlineAlternateEmail className="text-blue-500 font-bold" />
-                  </div>
+                    >
+                      <MdOutlineAlternateEmail className="text-blue-500 font-bold" />
+                    </div>
 
-                  <input
-                    type="email"
-                    name="email"
-                    required
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className={`
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className={`
                     text-sm
                     placeholder-gray-500
                     pl-10
@@ -134,16 +132,16 @@ const Login = () => {
                     w-full
                     py-2
                     focus:outline-none focus:border-blue-400`}
-                    placeholder="Enter your email"
-                  />
+                      placeholder="Enter your email"
+                    />
+                  </div>
                 </div>
-              </div>
 
-              {/* Password */}
-              <div className="flex flex-col mb-5">
-                <div className="relative">
-                  <div
-                    className="
+                {/* Password */}
+                <div className="flex flex-col mb-5">
+                  <div className="relative">
+                    <div
+                      className="
                     inline-flex
                     items-center
                     justify-center
@@ -154,17 +152,17 @@ const Login = () => {
                     w-10
                     text-gray-400
                   "
-                  >
-                    <RiLockPasswordFill className="text-blue-500 font-bold" />
-                  </div>
+                    >
+                      <RiLockPasswordFill className="text-blue-500 font-bold" />
+                    </div>
 
-                  <input
-                    type="password"
-                    name="password"
-                    required
-                    value={formData.password}
-                    onChange={handleInputChange}
-                    className={`
+                    <input
+                      type="password"
+                      name="password"
+                      required
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      className={`
                     text-sm
                     placeholder-gray-500
                     pl-10
@@ -175,44 +173,45 @@ const Login = () => {
                     py-2
                     focus:outline-none focus:border-blue-400
                       `}
-                    placeholder="Enter your password"
-                  />
-                </div>
-              </div>
-
-              <Button
-                type="submit"
-                fullWidth
-                className={`bg-blue-500 capitalize text-[16px] mt-7`}
-                disabled={loading ? true : false}
-              >
-                {loading ? (
-                  <div className="flex items-center justify-center gap-5 ">
-                    <ImSpinner9 className="animate-spin text-[20px]" />
-                    Logging In
+                      placeholder="Enter your password"
+                    />
                   </div>
-                ) : (
-                  "Login"
-                )}
-              </Button>
+                </div>
+
+                <Button
+                  type="submit"
+                  fullWidth
+                  className={`bg-blue-500 capitalize text-[16px] mt-7`}
+                  disabled={loading ? true : false}
+                >
+                  {loading ? (
+                    <div className="flex items-center justify-center gap-5 ">
+                      <ImSpinner9 className="animate-spin text-[20px]" />
+                      Logging In
+                    </div>
+                  ) : (
+                    "Login"
+                  )}
+                </Button>
+              </form>
+
+              <div className="flex items-center justify-center text-center py-4">
+                <span className="text-sm text-gray-900 dark:text-gray-200">
+                  Not a partner yet?
+                </span>
+
+                <Link
+                  target="_blank"
+                  to="https://dine-dash-client.web.app/be-a-partner"
+                  className="mx-2 text-sm font-bold text-blue-500 dark:text-blue-400 hover:underline"
+                >
+                  Send A Partner Request
+                </Link>
+              </div>
             </div>
           </div>
-
-          <div className="flex justify-center items-center mt-6">
-            <p className="text-sm font-bold text-gray-600">
-              Not a partner yet?{" "}
-              <span className="text-blue-600 hover:underline">
-                <Link
-                  to="https://dine-dash-client.web.app/partner-request"
-                  target="_blank"
-                >
-                  Send a Partner Request Now
-                </Link>
-              </span>
-            </p>
-          </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 };
