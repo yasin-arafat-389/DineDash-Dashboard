@@ -34,14 +34,16 @@ const FoodsWeOffer = () => {
     <div>
       {myOfferedFoods.length === 0 ? (
         <div>
-          <div className="flex flex-col gap-7 mt-10">
+          <div className="flex flex-col gap-7 mt-5 py-10 rounded-lg bg-gray-200">
             <div className="flex flex-col justify-center items-center">
-              <img
-                src="https://i.ibb.co/yhD66pK/burger.png"
-                className="w-[100px]"
-              />
+              <div className="bg-gray-400 p-8 rounded-full shadow-lg shadow-blue-400">
+                <img
+                  src="https://i.ibb.co/yhD66pK/burger.png"
+                  className="w-[100px]"
+                />
+              </div>
 
-              <h1 className="text-4xl font-bold my-5 italic text-gray-700">
+              <h1 className="text-4xl font-bold mt-9 italic text-gray-700">
                 You are not offering any food yet!!
               </h1>
             </div>

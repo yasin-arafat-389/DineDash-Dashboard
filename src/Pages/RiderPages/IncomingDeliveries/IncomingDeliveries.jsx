@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../../Hooks/useAxios";
 import Loader from "../../../Utilities/Loader/Loader";
-import NoDataFound from "../../../Utilities/NoDataFound/NoDataFound";
 import useDeliveryArea from "../../../Hooks/useDeliveryArea";
 import { Button, Dialog } from "@material-tailwind/react";
 import { IoMdCloseCircle } from "react-icons/io";
@@ -83,8 +82,16 @@ const IncomingDeliveries = () => {
 
       <div>
         {incomingDeliveries.length === 0 ? (
-          <div className="mt-10">
-            <NoDataFound text={"No incoming deliveries for now!!"} />
+          <div className="flex flex-col justify-center items-center h-full bg-gray-100 py-7 mt-5 rounded-lg">
+            <div className="mx-auto bg-gray-300 p-8 rounded-full shadow-lg shadow-blue-400">
+              <img
+                src="https://i.ibb.co/5c8cTg3/not-delivered.png"
+                className="w-[100px]"
+              />
+            </div>
+            <h2 className="text-center text-[30px] md:text-[40px] lg:text-[40px] font-bold leading-tight text-gray-800 pt-10">
+              No Incoming Deliveries For Now.
+            </h2>
           </div>
         ) : (
           <>

@@ -35,8 +35,8 @@ const RiderActivity = () => {
       <div>
         {data.length === 0 ? (
           <div>
-            <div className="bg-[#FFE7C1] flex flex-col justify-center items-center mt-7 rounded-lg pb-5 pt-5">
-              <div className="bg-blue-200 shadow-2xl flex justify-center items-center p-6 rounded-full">
+            <div className="bg-gray-200 flex flex-col justify-center items-center mt-7 rounded-lg pb-5 pt-5">
+              <div className="bg-gray-400 shadow-xl shadow-blue-300 flex justify-center items-center p-6 rounded-full">
                 <img
                   src="https://i.ibb.co/jRwxsDK/no-results.png"
                   className="w-[100px]"

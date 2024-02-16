@@ -13,7 +13,9 @@ function NavList() {
       <Link
         to={to}
         className={`${
-          location.pathname === to ? "active-link" : "inactive-link"
+          location.pathname === to
+            ? "active-link"
+            : "p-3 hover:bg-gray-200 rounded-lg transition-all"
         } font-bold`}
       >
         {label}

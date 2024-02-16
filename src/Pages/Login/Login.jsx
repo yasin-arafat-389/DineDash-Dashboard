@@ -78,7 +78,7 @@ const Login = () => {
           <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl">
             <div className="hidden lg:flex lg:w-1/2">
               <img
-                src="https://i.ibb.co/TH4yV64/two-factor-authentication-concept-illustration-114360-5280.jpg"
+                src="https://i.ibb.co/Stk5VMn/20602937-6325230.jpg"
                 className="object-cover"
               />
             </div>

@@ -12,8 +12,9 @@ import {
 } from "@material-tailwind/react";
 import { ImSpinner9 } from "react-icons/im";
 import toast from "react-hot-toast";
-import NoDataFound from "../../../Utilities/NoDataFound/NoDataFound";
+import notOfferingFoodYet from "./notOfferingFoodsYet.json";
 import { Link } from "react-router-dom";
+import Lottie from "lottie-react";
 
 const MyFoods = () => {
   let { user } = useContext(authContext);
@@ -134,20 +135,32 @@ const MyFoods = () => {
         <span className="flex-grow block border-t border-green-600"></span>
       </h2>
 
-      {/* My Products cards */}
+      {/* My Foods cards */}
       <div>
-        <div className="mt-10 mb-20">
+        <div className={`mb-20 ${data.length > 0 && "mt-10"}`}>
           {data.length === 0 && (
             <div>
-              <NoDataFound text={"You do not offer any food yet!!"} />
-              <Link
-                className="w-full flex"
-                to={"/restaurant/dashboard/add-new-food"}
-              >
-                <Button className="mx-auto capitalize text-lg w-[40%] bg-blue-600 mt-7">
-                  Add Food To Get Started
-                </Button>
-              </Link>
+              <div className="flex flex-col justify-center items-center h-full bg-gray-100 py-7 rounded-lg">
+                <div className="w-full">
+                  <Lottie
+                    animationData={notOfferingFoodYet}
+                    loop={true}
+                    className="w-[300px] h-[300px] mx-auto bg-gray-300 rounded-full shadow-xl shadow-blue-200"
+                  />
+                </div>
+                <h2 className="text-center text-[30px] md:text-[40px] lg:text-[40px] font-bold leading-tight text-gray-800 pt-10">
+                  You are not offering any food yet!!
+                </h2>
+
+                <Link
+                  className="w-full flex"
+                  to={"/restaurant/dashboard/add-new-food"}
+                >
+                  <Button className="mx-auto capitalize text-lg w-[40%] bg-blue-600 mt-7">
+                    Add Food To Get Started
+                  </Button>
+                </Link>
+              </div>
             </div>
           )}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">

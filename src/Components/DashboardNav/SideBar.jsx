@@ -50,7 +50,12 @@ const SideBar = () => {
             <h1 className="text-lg font-bold">{user?.displayName}</h1>
           </div>
           <List>
-            <NavLink to="/dashboard/overview">
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "active" : "text-lg rounded-lg hover:bg-blue-100"
+              }
+              to="/dashboard/overview"
+            >
               <div className="flex p-3 font-bold">
                 <ListItemPrefix>
                   <MdDashboard fontSize={"20"} />
@@ -61,7 +66,12 @@ const SideBar = () => {
 
             {/* Admin routes */}
             {role === "admin" && (
-              <NavLink to="/admin/dashboard/partner-requests">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "active" : "text-lg rounded-lg hover:bg-blue-100"
+                }
+                to="/admin/dashboard/partner-requests"
+              >
                 <div className="flex p-3 font-bold">
                   <ListItemPrefix>
                     <IoPersonAdd fontSize={"20"} />
@@ -72,7 +82,12 @@ const SideBar = () => {
             )}
 
             {role === "admin" && (
-              <NavLink to="/admin/dashboard/rider-requests">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "active" : "text-lg rounded-lg hover:bg-blue-100"
+                }
+                to="/admin/dashboard/rider-requests"
+              >
                 <div className="flex items-center p-3 font-bold">
                   <ListItemPrefix>
                     <MdDeliveryDining fontSize={"30"} />
@@ -84,7 +99,12 @@ const SideBar = () => {
 
             {/* Restaurant handlers routes */}
             {role === "restaurant-handler" && (
-              <NavLink to="/restaurant/dashboard/orders">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "active" : "text-lg rounded-lg hover:bg-blue-100"
+                }
+                to="/restaurant/dashboard/orders"
+              >
                 <div className="flex p-3 font-bold">
                   <ListItemPrefix>
                     <IoIosNotifications fontSize={"20"} />
@@ -95,7 +115,12 @@ const SideBar = () => {
             )}
 
             {role === "restaurant-handler" && (
-              <NavLink to="/restaurant/dashboard/custom-burger">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "active" : "text-lg rounded-lg hover:bg-blue-100"
+                }
+                to="/restaurant/dashboard/custom-burger"
+              >
                 <div className="flex p-3 font-bold">
                   <ListItemPrefix>
                     <PiHamburgerFill fontSize={"20"} />
@@ -106,7 +131,12 @@ const SideBar = () => {
             )}
 
             {role === "restaurant-handler" && (
-              <NavLink to="/restaurant/dashboard/add-new-food">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "active" : "text-lg rounded-lg hover:bg-blue-100"
+                }
+                to="/restaurant/dashboard/add-new-food"
+              >
                 <div className="flex p-3 font-bold">
                   <ListItemPrefix>
                     <IoMdAddCircle fontSize={"20"} />
@@ -117,7 +147,12 @@ const SideBar = () => {
             )}
 
             {role === "restaurant-handler" && (
-              <NavLink to="/restaurant/dashboard/my-foods">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "active" : "text-lg rounded-lg hover:bg-blue-100"
+                }
+                to="/restaurant/dashboard/my-foods"
+              >
                 <div className="flex p-3 font-bold">
                   <ListItemPrefix>
                     <IoFastFood fontSize={"20"} />
@@ -129,7 +164,12 @@ const SideBar = () => {
 
             {/* Rider routes */}
             {role === "rider" && (
-              <NavLink to="/rider/dashboard/incoming-deliveries">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "active" : "rounded-lg hover:bg-blue-100"
+                }
+                to="/rider/dashboard/incoming-deliveries"
+              >
                 <div className="flex p-3 font-bold">
                   <ListItemPrefix>
                     <BsFillArrowDownLeftCircleFill fontSize={"20"} />
@@ -140,7 +180,12 @@ const SideBar = () => {
             )}
 
             {role === "rider" && (
-              <NavLink to="/rider/dashboard/accepted-deliveries">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "active" : "rounded-lg hover:bg-blue-100"
+                }
+                to="/rider/dashboard/accepted-deliveries"
+              >
                 <div className="flex p-3 font-bold">
                   <ListItemPrefix>
                     <FaCheckCircle fontSize={"20"} />
@@ -151,7 +196,10 @@ const SideBar = () => {
             )}
 
             {/* Common route */}
-            <button className="bg-transparent" onClick={handleLogOut}>
+            <button
+              className="bg-transparent hover:bg-blue-100 rounded-lg"
+              onClick={handleLogOut}
+            >
               <div className="flex p-3 font-bold">
                 <ListItemPrefix>
                   <FaPowerOff fontSize={"20"} />

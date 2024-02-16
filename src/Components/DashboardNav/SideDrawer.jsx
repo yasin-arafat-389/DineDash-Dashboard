@@ -64,7 +64,13 @@ const SideDrawer = () => {
               </div>
             </div>
             <List>
-              <NavLink to="/dashboard/overview" onClick={closeDrawer}>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "active" : "text-lg rounded-lg hover:bg-blue-100"
+                }
+                to="/dashboard/overview"
+                onClick={closeDrawer}
+              >
                 <div className="flex p-3 font-bold">
                   <ListItemPrefix>
                     <MdDashboard fontSize={"20"} />
@@ -76,6 +82,9 @@ const SideDrawer = () => {
               {/* Admin routes */}
               {role === "admin" && (
                 <NavLink
+                  className={({ isActive }) =>
+                    isActive ? "active" : "text-lg rounded-lg hover:bg-blue-100"
+                  }
                   to="/admin/dashboard/partner-requests"
                   onClick={closeDrawer}
                 >
@@ -90,6 +99,9 @@ const SideDrawer = () => {
 
               {role === "admin" && (
                 <NavLink
+                  className={({ isActive }) =>
+                    isActive ? "active" : "text-lg rounded-lg hover:bg-blue-100"
+                  }
                   to="/admin/dashboard/rider-requests"
                   onClick={closeDrawer}
                 >
@@ -105,6 +117,9 @@ const SideDrawer = () => {
               {/* Restaurant handlers routes */}
               {role === "restaurant-handler" && (
                 <NavLink
+                  className={({ isActive }) =>
+                    isActive ? "active" : "text-lg rounded-lg hover:bg-blue-100"
+                  }
                   to="/restaurant/dashboard/orders"
                   onClick={closeDrawer}
                 >
@@ -119,6 +134,9 @@ const SideDrawer = () => {
 
               {role === "restaurant-handler" && (
                 <NavLink
+                  className={({ isActive }) =>
+                    isActive ? "active" : "text-lg rounded-lg hover:bg-blue-100"
+                  }
                   to="/restaurant/dashboard/custom-burger"
                   onClick={closeDrawer}
                 >
@@ -133,6 +151,9 @@ const SideDrawer = () => {
 
               {role === "restaurant-handler" && (
                 <NavLink
+                  className={({ isActive }) =>
+                    isActive ? "active" : "text-lg rounded-lg hover:bg-blue-100"
+                  }
                   to="/restaurant/dashboard/add-new-food"
                   onClick={closeDrawer}
                 >
@@ -147,6 +168,9 @@ const SideDrawer = () => {
 
               {role === "restaurant-handler" && (
                 <NavLink
+                  className={({ isActive }) =>
+                    isActive ? "active" : "text-lg rounded-lg hover:bg-blue-100"
+                  }
                   to="/restaurant/dashboard/my-foods"
                   onClick={closeDrawer}
                 >
@@ -162,6 +186,9 @@ const SideDrawer = () => {
               {/* Rider routes */}
               {role === "rider" && (
                 <NavLink
+                  className={({ isActive }) =>
+                    isActive ? "active" : "text-lg rounded-lg hover:bg-blue-100"
+                  }
                   to="/rider/dashboard/incoming-deliveries"
                   onClick={closeDrawer}
                 >
@@ -176,6 +203,9 @@ const SideDrawer = () => {
 
               {role === "rider" && (
                 <NavLink
+                  className={({ isActive }) =>
+                    isActive ? "active" : "text-lg rounded-lg hover:bg-blue-100"
+                  }
                   to="/rider/dashboard/accepted-deliveries"
                   onClick={closeDrawer}
                 >
@@ -190,7 +220,7 @@ const SideDrawer = () => {
 
               {/* Common route */}
               <button className="bg-transparent" onClick={handleLogOut}>
-                <div className="flex p-3 font-bold">
+                <div className="flex p-3 font-bold rounded-lg hover:bg-blue-100">
                   <ListItemPrefix>
                     <FaPowerOff fontSize={"20"} />
                   </ListItemPrefix>

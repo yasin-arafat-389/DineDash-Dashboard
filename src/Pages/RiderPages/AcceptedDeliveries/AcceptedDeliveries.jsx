@@ -3,7 +3,6 @@ import useAxios from "../../../Hooks/useAxios";
 import Loader from "../../../Utilities/Loader/Loader";
 import { useContext, useState } from "react";
 import { authContext } from "../../../Contexts/AuthContext";
-import NoDataFound from "../../../Utilities/NoDataFound/NoDataFound";
 import { Button, Dialog } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { IoMdCloseCircle } from "react-icons/io";
@@ -80,14 +79,23 @@ const AcceptedDeliveries = () => {
 
       <div>
         {acceptedDeliveries.length === 0 ? (
-          <div className="mt-10 flex flex-col gap-6 items-center">
-            <NoDataFound text={"You have not accepted any deliveries yet!!"} />
+          <div className="flex flex-col justify-center items-center h-full bg-gray-100 py-7 mt-5 rounded-lg">
+            <div className="mx-auto bg-gray-300 p-8 rounded-full shadow-lg shadow-blue-400">
+              <img
+                src="https://i.ibb.co/8KQFVmW/rejected.png"
+                className="w-[100px]"
+              />
+            </div>
+            <h2 className="text-center text-[20px] md:text-[30px] lg:text-[30px] font-bold leading-tight text-gray-800 pt-10">
+              You have not accepted any delivery yet.
+            </h2>
+
             <Link
+              className="w-full flex"
               to={"/rider/dashboard/incoming-deliveries"}
-              className="flex w-full justify-center"
             >
-              <Button className="bg-blue-600 w-[40%] text-lg capitalize">
-                Accept Delivery
+              <Button className="mx-auto capitalize text-lg w-[40%] bg-blue-600 mt-7">
+                Accept delivery to get started
               </Button>
             </Link>
           </div>
