@@ -15,7 +15,7 @@ function NavList() {
         className={`${
           location.pathname === to
             ? "active-link"
-            : "p-3 hover:bg-gray-200 rounded-lg transition-all"
+            : "p-3 hover:bg-gray-400 hover:text-white rounded-lg transition-all"
         } font-bold`}
       >
         {label}
@@ -47,8 +47,8 @@ export function NavbarMain() {
   }, []);
 
   return (
-    <div>
-      <div className="w-full rounded-none p-3">
+    <div className="sticky top-0 z-10 shadow-xl">
+      <div className="w-full rounded-none p-3 bg-[#F0EDD4]">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Link to="/">
             <img
