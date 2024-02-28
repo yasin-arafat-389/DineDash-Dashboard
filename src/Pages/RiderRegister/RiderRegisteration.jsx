@@ -13,6 +13,7 @@ import { MdOutlineAlternateEmail, MdPendingActions } from "react-icons/md";
 import { CiWarning } from "react-icons/ci";
 import { IoWarningOutline } from "react-icons/io5";
 import { FaCheckCircle } from "react-icons/fa";
+import deliveryRiderImage from "../../Assets/delivery-man-with-face-mask-delivering-order-motorcycle-154993-160.jpg";
 
 const RiderRegisteration = () => {
   let axios = useAxios();
@@ -187,7 +188,7 @@ const RiderRegisteration = () => {
           <div
             className="m-2 w-full rounded-2xl bg-gray-400 bg-cover bg-center text-white sm:w-2/5"
             style={{
-              backgroundImage: `url('https://i.ibb.co/Q69xFQm/delivery-man-with-face-mask-delivering-order-motorcycle-154993-160.jpg')`,
+              backgroundImage: `url(${deliveryRiderImage})`,
             }}
           ></div>
           <div className="w-full sm:w-3/5">

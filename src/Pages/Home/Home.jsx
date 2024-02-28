@@ -15,6 +15,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { MdPendingActions } from "react-icons/md";
 import { MdCancel } from "react-icons/md";
 import { Helmet } from "react-helmet";
+import restaurantsLogo from "../../Assets/restaurants.jpg";
 
 const Home = () => {
   let axios = useAxios();
@@ -182,7 +183,7 @@ const Home = () => {
           <div
             className="m-2 w-full rounded-2xl bg-gray-400 bg-cover bg-center text-white sm:w-2/5"
             style={{
-              backgroundImage: `url('https://i.ibb.co/jbwvN8K/1589656374290.jpg')`,
+              backgroundImage: `url(${restaurantsLogo})`,
             }}
           ></div>
           <div className="w-full sm:w-3/5">

@@ -7,6 +7,7 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { authContext } from "../../Contexts/AuthContext";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet";
+import loginImage from "../../Assets/loginImage.svg";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -77,10 +78,7 @@ const Login = () => {
         <div className="py-20">
           <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl">
             <div className="hidden lg:flex lg:w-1/2">
-              <img
-                src="https://i.ibb.co/Stk5VMn/20602937-6325230.jpg"
-                className="object-cover"
-              />
+              <img src={loginImage} className="object-cover" />
             </div>
 
             <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
