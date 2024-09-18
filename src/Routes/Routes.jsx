@@ -18,6 +18,7 @@ import IncomingDeliveries from "../Pages/RiderPages/IncomingDeliveries/IncomingD
 import AcceptedDeliveries from "../Pages/RiderPages/AcceptedDeliveries/AcceptedDeliveries";
 import RiderRegisteration from "../Pages/RiderRegister/RiderRegisteration";
 import Login from "../Pages/Login/Login";
+import CreateOffer from "../Pages/PartnerPages/CreateOffer/CreateOffer";
 
 const router = createBrowserRouter([
   {
@@ -108,6 +109,14 @@ const router = createBrowserRouter([
         element: (
           <RestaurantHandlersRoute>
             <MyFoods />
+          </RestaurantHandlersRoute>
+        ),
+      },
+      {
+        path: "/restaurant/dashboard/create-offer",
+        element: (
+          <RestaurantHandlersRoute>
+            <CreateOffer />
           </RestaurantHandlersRoute>
         ),
       },

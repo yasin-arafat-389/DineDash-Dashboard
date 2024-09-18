@@ -10,6 +10,7 @@ import { IoIosNotifications, IoMdAddCircle } from "react-icons/io";
 import { PiHamburgerFill } from "react-icons/pi";
 import { BsFillArrowDownLeftCircleFill } from "react-icons/bs";
 import { FaCheckCircle } from "react-icons/fa";
+import { BiSolidOffer } from "react-icons/bi";
 import toast from "react-hot-toast";
 
 const SideBar = () => {
@@ -158,6 +159,22 @@ const SideBar = () => {
                     <IoFastFood fontSize={"20"} />
                   </ListItemPrefix>
                   My Foods
+                </div>
+              </NavLink>
+            )}
+
+            {role === "restaurant-handler" && (
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "active" : "text-lg rounded-lg hover:bg-blue-100"
+                }
+                to="/restaurant/dashboard/create-offer"
+              >
+                <div className="flex p-3 font-bold">
+                  <ListItemPrefix>
+                    <BiSolidOffer fontSize={"22"} />
+                  </ListItemPrefix>
+                  Create Offer
                 </div>
               </NavLink>
             )}
