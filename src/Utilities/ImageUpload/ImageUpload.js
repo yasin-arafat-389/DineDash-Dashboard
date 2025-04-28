@@ -3,23 +3,24 @@ import Swal from "sweetalert2";
 
 export const imageUpload = async (image, setLoading) => {
   const formData = new FormData();
-  formData.append("image", image);
+  formData.append("file", image);
+  formData.append("upload_preset", "imageUp");
 
-  const { data } = await axios
-    .post(
-      `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`,
+  try {
+    const { data } = await axios.post(
+      `https://api.cloudinary.com/v1_1/dfqoncxpr/image/upload`,
       formData
-    )
-    .then()
-    .catch(() => {
-      setLoading(false);
-      Swal.fire({
-        icon: "warning",
-        text: "Please choose another image. This image might be corrupted!!",
-      });
+    );
 
-      return;
+    return data.secure_url;
+  } catch (error) {
+    console.error("Cloudinary Upload Error:", error.response?.data || error);
+    setLoading(false);
+    Swal.fire({
+      icon: "warning",
+      text: "Image upload failed. Please try again!",
     });
 
-  return data;
+    return null;
+  }
 };
