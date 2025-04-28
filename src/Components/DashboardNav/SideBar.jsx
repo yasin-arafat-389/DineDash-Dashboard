@@ -14,7 +14,7 @@ import { BiSolidOffer } from "react-icons/bi";
 import toast from "react-hot-toast";
 
 const SideBar = () => {
-  let { logOut, user } = useContext(authContext);
+  let { logOut } = useContext(authContext);
   let navigate = useNavigate();
   let [role] = useRole();
 
@@ -43,13 +43,6 @@ const SideBar = () => {
     <div className="hidden md:hidden lg:block">
       <div>
         <div className="w-full max-w-[20rem] bg-[#F9FFA4] rounded-xl p-4 shadow-xl shadow-blue-gray-900/5">
-          <div className="mb-2 p-4 flex items-center gap-3">
-            <img
-              src={user?.photoURL || "https://i.ibb.co/HN9NtYY/user.png"}
-              className="w-[60px] h-[60px] border-2 border-blue-500 rounded-full object-cover"
-            />
-            <h1 className="text-lg font-bold">{user?.displayName}</h1>
-          </div>
           <List>
             <NavLink
               className={({ isActive }) =>
