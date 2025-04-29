@@ -119,13 +119,13 @@ const Home = () => {
       .post("/register-restaurant", {
         email: email,
         restaurantName: restaurant,
-        thumbnail: imgData?.data?.display_url,
+        thumbnail: imgData,
       })
       .then(() => {});
 
     createUser(email, password)
       .then(() => {
-        update(restaurant, imgData?.data?.display_url)
+        update(restaurant, imgData)
           .then(() => {})
           .catch((error) => {
             console.log(error);

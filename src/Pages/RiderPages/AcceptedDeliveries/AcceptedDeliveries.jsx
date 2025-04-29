@@ -82,7 +82,7 @@ const AcceptedDeliveries = () => {
           <div className="flex flex-col justify-center items-center h-full bg-gray-100 py-7 mt-5 rounded-lg">
             <div className="mx-auto bg-gray-300 p-8 rounded-full shadow-lg shadow-blue-400">
               <img
-                src="https://i.ibb.co/8KQFVmW/rejected.png"
+                src="https://i.ibb.co.com/DfCSkHMv/no-results.png"
                 className="w-[100px]"
               />
             </div>
@@ -110,7 +110,7 @@ const AcceptedDeliveries = () => {
                       {/* Pickup Location */}
                       <div className="flex items-center">
                         <img
-                          src="https://i.ibb.co/jzwgkrV/location.png"
+                          src="https://i.ibb.co.com/1J7bzBXv/location.png"
                           className="w-[40px]"
                         />
                         <div className="my-2 ml-3 text-lg text-gray-800">
@@ -124,7 +124,7 @@ const AcceptedDeliveries = () => {
                       {/* Drop off Location */}
                       <div className="flex items-center mt-3">
                         <img
-                          src="https://i.ibb.co/vV0P1QV/parcel.png"
+                          src="https://i.ibb.co.com/XvPnfWY/parcels.png"
                           className="w-[40px]"
                         />
                         <div className="my-2 ml-3 text-lg text-gray-800 line-clamp-1">

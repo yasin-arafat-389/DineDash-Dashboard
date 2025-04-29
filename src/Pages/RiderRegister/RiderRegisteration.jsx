@@ -130,7 +130,7 @@ const RiderRegisteration = () => {
 
     createUser(email, password)
       .then(() => {
-        update(riderName, imgData?.data?.display_url)
+        update(riderName, imgData)
           .then(() => {})
           .catch((error) => {
             console.log(error);

@@ -62,7 +62,7 @@ const AddNewFood = () => {
 
     let dataToSubmit = {
       ...formData,
-      image: imgData?.data?.display_url,
+      image: imgData,
       restaurant: user.displayName,
     };
 
